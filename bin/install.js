@@ -189,3 +189,4 @@ for (const rt of runtimesToInstall) {
 }
 
 console.log('\x1b[36m==> Installation complete!\x1b[0m');
+

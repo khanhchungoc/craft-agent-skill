@@ -58,26 +58,35 @@ if ($Scope -eq "User") {
     $destinations["copilot"]        = Join-Path $userHome ".copilot\skills\craft-agent-skill"
     $destinations["claude-code"]    = Join-Path $userHome ".claude\skills\craft-agent-skill"
     $destinations["codex"]          = Join-Path $userHome ".agents\skills\craft-agent-skill"
-    $destinations["gemini"]         = Join-Path $userHome ".gemini\antigravity\skills\craft-agent-skill"
+    $destinations["gemini"]         = Join-Path $userHome ".gemini\skills\craft-agent-skill"
+    $destinations["antigravity"]    = Join-Path $userHome ".gemini\config\skills\craft-agent-skill"
     $destinations["kiro"]           = Join-Path $userHome ".kiro\skills\craft-agent-skill"
 } else {
     $targetDir = (Resolve-Path $TargetPath).Path
     $destinations["copilot"]        = Join-Path $targetDir ".github\skills\craft-agent-skill"
     $destinations["claude-code"]    = Join-Path $targetDir ".claude\skills\craft-agent-skill"
     $destinations["codex"]          = Join-Path $targetDir ".agents\skills\craft-agent-skill"
-    $destinations["gemini"]         = Join-Path $targetDir "skills\craft-agent-skill"
+    $destinations["gemini"]         = Join-Path $targetDir ".gemini\skills\craft-agent-skill"
+    $destinations["antigravity"]    = Join-Path $targetDir ".agents\skills\craft-agent-skill"
     $destinations["kiro"]           = Join-Path $targetDir ".kiro\skills\craft-agent-skill"
 }
 
 $normalizedRuntime = switch ($Runtime) {
     "github-copilot" { "copilot" }
-    "antigravity"    { "gemini" }
     default          { $Runtime }
 }
-$runtimesToInstall = if ($normalizedRuntime -eq "all") { @("copilot", "claude-code", "codex", "gemini", "kiro") } else { @($normalizedRuntime) }
+$runtimesToInstall = if ($normalizedRuntime -eq "all") { @("copilot", "claude-code", "codex", "gemini", "antigravity", "kiro") } else { @($normalizedRuntime) }
 
 foreach ($rt in $runtimesToInstall) {
     $dest = $destinations[$rt]
+    $canonicalDest = [System.IO.Path]::GetFullPath($dest).TrimEnd('\', '/')
+    $canonicalRepo = [System.IO.Path]::GetFullPath($repoRoot).TrimEnd('\', '/')
+
+    if ($canonicalDest -eq $canonicalRepo) {
+        Write-Host "    Target ($rt) -> $dest is the source repository; skipping to prevent self-deletion." -ForegroundColor Yellow
+        continue
+    }
+
     $parentDir = Split-Path $dest -Parent
 
     if (-not (Test-Path $parentDir)) {

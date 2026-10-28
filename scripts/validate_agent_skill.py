@@ -29,7 +29,7 @@ except ImportError:
 RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", "claude-code", "codex", "kiro", "gemini")
 AGENT_ROOTS = {".github": "copilot", ".claude": "claude-code",
                ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini"}
-SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro")
+SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
 
 
 def runtime_for(path: Path, selected: str = "auto") -> str:

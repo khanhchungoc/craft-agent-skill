@@ -8,19 +8,21 @@ Works seamlessly with **GitHub Copilot**, **Claude Code**, **OpenAI Codex**, **C
 
 ## ⚡ Quick Install
 
-You don't need to download or clone this repository. Just open your terminal and run:
+Run this in your terminal:
 
-### Install for your current project:
 ```bash
-npx skills add khanhchungoc/craft-agent-skill
+# Install globally across all your AI assistants:
+npx khanhchungoc/craft-agent-skill
+
+# Or install for your current project workspace only:
+npx khanhchungoc/craft-agent-skill -p
 ```
 
-### Install globally (available in all your projects):
-```bash
-npx skills add khanhchungoc/craft-agent-skill -g
-```
-
-> **Tip:** If prompted to pick an agent, select your preferred tool (e.g., GitHub Copilot, Claude Code, Cursor) or choose All.
+> **Target a specific tool:**
+> * **Antigravity:** `npx khanhchungoc/craft-agent-skill -a antigravity`
+> * **Claude Code:** `npx khanhchungoc/craft-agent-skill -a claude-code`
+> * **Copilot:** `npx khanhchungoc/craft-agent-skill -a copilot`
+> * **Codex / Cursor:** `npx khanhchungoc/craft-agent-skill -a codex`
 
 ---
 
@@ -55,7 +57,14 @@ The skill handles all platform-specific folder structures, templates, and file c
 ## 🛠️ Advanced Options
 
 <details>
-<summary>Click to view Git submodule, local scripts, and validator CLI</summary>
+<summary>Click to view interactive install, Git submodule, local scripts, and validator CLI</summary>
+
+### Interactive Agent Picker
+If you want to manually select which agents to install to from the interactive CLI menu:
+
+```bash
+npx skills add khanhchungoc/craft-agent-skill
+```
 
 ### Git Submodule (for team repositories)
 ```bash
@@ -63,9 +72,9 @@ git submodule add https://github.com/khanhchungoc/craft-agent-skill.git .github/
 ```
 
 ### PowerShell / Bash Script Installers
-If you have cloned this repository locally:
-* **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User` or `-Scope Project`
-* **macOS / Linux:** `./scripts/install.sh --scope user` or `--scope project`
+If you have cloned this repository locally, you can target specific runtimes:
+* **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User -Runtime claude-code` (options: `all`, `copilot`, `claude-code`, `codex`, `gemini`, `antigravity`, `kiro`)
+* **macOS / Linux:** `./scripts/install.sh --scope user --runtime claude-code` (options: `all`, `copilot`, `claude-code`, `codex`, `gemini`, `antigravity`, `kiro`)
 
 ### Built-in Linter & Validator
 Validate any agent or skill folder for syntax errors, platform compatibility, and broken links:

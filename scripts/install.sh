@@ -20,7 +20,7 @@ while [[ "$#" -gt 0 ]]; do
         --mode|-m) MODE="$2"; shift ;;
         --target-path|-t) TARGET_PATH="$2"; shift ;;
         --help|-h)
-            echo "Usage: $0 [--scope user|project] [--runtime all|copilot|claude-code|codex|gemini|kiro] [--mode symlink|copy]"
+            echo "Usage: $0 [--scope user|project] [--runtime all|copilot|claude-code|codex|gemini|antigravity|kiro] [--mode symlink|copy]"
             exit 0
             ;;
         *) echo "Unknown parameter: $1"; exit 1 ;;
@@ -43,26 +43,41 @@ if [[ "$SCOPE" == "user" ]]; then
     DESTINATIONS["copilot"]="$HOME/.copilot/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$HOME/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$HOME/.agents/skills/craft-agent-skill"
-    DESTINATIONS["gemini"]="$HOME/.gemini/config/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$HOME/.gemini/skills/craft-agent-skill"
+    DESTINATIONS["antigravity"]="$HOME/.gemini/config/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$HOME/.kiro/skills/craft-agent-skill"
 else
     DESTINATIONS["copilot"]="$TARGET_PATH/.github/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$TARGET_PATH/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
-    DESTINATIONS["gemini"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$TARGET_PATH/.gemini/skills/craft-agent-skill"
+    DESTINATIONS["antigravity"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$TARGET_PATH/.kiro/skills/craft-agent-skill"
 fi
 
 if [[ "$RUNTIME" == "all" ]]; then
-    RUNTIMES=("copilot" "claude-code" "codex" "gemini" "kiro")
+    RUNTIMES=("copilot" "claude-code" "codex" "gemini" "antigravity" "kiro")
 else
     RUNTIMES=("$RUNTIME")
 fi
+
+canonical_repo="$(cd "$REPO_ROOT" && pwd)"
 
 for rt in "${RUNTIMES[@]}"; do
     dest="${DESTINATIONS[$rt]}"
     parent_dir="$(dirname "$dest")"
     mkdir -p "$parent_dir"
+
+    if [[ -d "$dest" ]]; then
+        canonical_dest="$(cd "$dest" && pwd)"
+    else
+        canonical_dest="$(cd "$parent_dir" && pwd)/$(basename "$dest")"
+    fi
+
+    if [[ "$canonical_dest" == "$canonical_repo" ]]; then
+        echo "    Target ($rt) -> $dest is the source repository; skipping to prevent self-deletion."
+        continue
+    fi
 
     if [[ -e "$dest" || -L "$dest" ]]; then
         echo "    Removing existing target at $dest"

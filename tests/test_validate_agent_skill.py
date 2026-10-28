@@ -272,10 +272,10 @@ class ValidatorTests(unittest.TestCase):
         self.write(".claude/agents/reviewer.md")
         self.native(".codex/agents/reviewer.toml", 'name="reviewer"\ndescription="Review changes."\ndeveloper_instructions="Return findings."')
         self.native(".kiro/agents/reviewer.json", '{"name":"reviewer","description":"Review changes.","prompt":"Return findings."}')
-        for root in (".github", ".claude", ".agents", ".kiro"):
+        for root in (".github", ".claude", ".agents", ".kiro", ".gemini"):
             self.write(f"{root}/skills/sample/SKILL.md")
         status, result = self.cli()
-        self.assertEqual((status, result["total_files"], result["errors"]), (0, 8, 0))
+        self.assertEqual((status, result["total_files"], result["errors"]), (0, 9, 0))
 
     def test_runtime_templates_instantiate_to_valid_native_files(self):
         assets = SCRIPT.parents[1] / "assets" / "runtimes"
@@ -298,7 +298,7 @@ class ValidatorTests(unittest.TestCase):
         content = template.read_text(encoding="utf-8")
         content = content.replace("<skill-name>", "sample")
         content = re.sub(r"<[^>]+>", "Review supplied artifacts with evidence", content)
-        roots = (".github", ".claude", ".agents", ".kiro", "skills")
+        roots = (".github", ".claude", ".agents", ".kiro", ".gemini", "skills")
         for root in roots:
             with self.subTest(root=root):
                 self.assertEqual(self.rules(self.native(f"{root}/skills/sample/SKILL.md", content)), set())
