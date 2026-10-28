@@ -6,7 +6,7 @@ This reference owns target-runtime discovery, profile selection, and native arti
 
 Recover an explicit target from the request or approved specification. Existing files identify the source format, not necessarily the intended destination. The editor, model provider, and agent harness are separate choices: using a Claude model in Copilot does not make the consumer Claude Code, and using Codex in VS Code does not make the consumer Copilot.
 
-If unresolved, ask a focused question such as: "Where will these customizations run: GitHub Copilot, Claude Code, Codex, Kiro, or another harness?" For multiple targets, identify every target explicitly. An existing asset's location is evidence to confirm, not permission to choose a new destination silently.
+If unresolved, ask a focused question such as: "Where will these customizations run: Copilot, Claude Code, Codex, Gemini / Antigravity, Kiro, or another harness?" For multiple targets, identify every target explicitly. An existing asset's location is evidence to confirm, not permission to choose a new destination silently.
 
 For a narrow in-place update without a migration request, retain an established consumer supported by the existing asset and caller context; do not reopen runtime selection merely to edit wording. Ask when destination, format, or required capabilities are materially uncertain.
 
@@ -31,9 +31,10 @@ Each profile owns the exact file formats and native filesystem destinations for 
 
 | Profile ID | Consumer | Project Agent Path & Format | Project Skill Root | Personal / User Scope | Native Profile Details |
 |---|---|---|---|---|---|
-| `github-copilot` | GitHub Copilot (VS Code / Local) | `.github/agents/<name>.agent.md` (Markdown + YAML) | `.github/skills/<name>/` | `~/.copilot/agents/<name>.agent.md` | [GitHub Copilot profile](runtimes/github-copilot.md) |
+| `copilot` | GitHub Copilot (VS Code / Local) | `.github/agents/<name>.agent.md` (Markdown + YAML) | `.github/skills/<name>/` | `~/.copilot/agents/<name>.agent.md` | [Copilot profile](runtimes/copilot.md) |
 | `claude-code` | Claude Code CLI & Desktop | `.claude/agents/<name>.md` (Markdown + YAML) | `.claude/skills/<name>/` | `~/.claude/agents/`, `~/.claude/skills/` | [Claude Code profile](runtimes/claude-code.md) |
 | `codex` | OpenAI Codex | `.codex/agents/<name>.toml` (TOML format) | `.agents/skills/<name>/` | `~/.codex/agents/`, `~/.agents/skills/` | [Codex profile](runtimes/codex.md) |
+| `gemini` | Google Gemini & Antigravity | Subagent definitions / Custom | `skills/<name>/` | `~/.gemini/antigravity/skills/<name>/` | [Gemini profile](runtimes/gemini.md) |
 | `kiro` | Kiro IDE / CLI | `.kiro/agents/<name>.json` (or `.md`) | `.kiro/skills/<name>/` | Surface-dependent | [Kiro profile](runtimes/kiro.md) |
 
 For another runtime, inspect its current official customization documentation and add a profile/templates before claiming support. Do not reinterpret another profile's metadata as equivalent. For a legacy version, verify that version's contract; current templates are not evidence of backward compatibility.

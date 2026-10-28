@@ -36,7 +36,7 @@ param (
     [ValidateSet("User", "Project")]
     [string]$Scope = "User",
 
-    [ValidateSet("all", "github-copilot", "claude-code", "codex", "antigravity", "kiro")]
+    [ValidateSet("all", "copilot", "github-copilot", "claude-code", "codex", "gemini", "antigravity", "kiro")]
     [string]$Runtime = "all",
 
     [ValidateSet("Symlink", "Copy")]
@@ -60,21 +60,28 @@ Write-Host "    Target:  $($Runtime.ToUpper())"
 $destinations = @{}
 
 if ($Scope -eq "User") {
-    $destinations["github-copilot"] = Join-Path $userHome ".copilot\skills\craft-agent-skill"
+    $destinations["copilot"]        = Join-Path $userHome ".copilot\skills\craft-agent-skill"
+    $destinations["gemini"]         = Join-Path $userHome ".gemini\antigravity\skills\craft-agent-skill"
     $destinations["claude-code"]    = Join-Path $userHome ".claude\skills\craft-agent-skill"
     $destinations["codex"]          = Join-Path $userHome ".agents\skills\craft-agent-skill"
     $destinations["antigravity"]    = Join-Path $userHome ".gemini\antigravity\skills\craft-agent-skill"
     $destinations["kiro"]           = Join-Path $userHome ".kiro\skills\craft-agent-skill"
 } else {
     $targetDir = (Resolve-Path $TargetPath).Path
-    $destinations["github-copilot"] = Join-Path $targetDir ".github\skills\craft-agent-skill"
+    $destinations["copilot"]        = Join-Path $targetDir ".github\skills\craft-agent-skill"
+    $destinations["gemini"]         = Join-Path $targetDir "skills\craft-agent-skill"
     $destinations["claude-code"]    = Join-Path $targetDir ".claude\skills\craft-agent-skill"
     $destinations["codex"]          = Join-Path $targetDir ".agents\skills\craft-agent-skill"
     $destinations["antigravity"]    = Join-Path $targetDir "skills\craft-agent-skill"
     $destinations["kiro"]           = Join-Path $targetDir ".kiro\skills\craft-agent-skill"
 }
 
-$runtimesToInstall = if ($Runtime -eq "all") { $destinations.Keys } else { @($Runtime) }
+$normalizedRuntime = switch ($Runtime) {
+    "github-copilot" { "copilot" }
+    "antigravity"    { "gemini" }
+    default          { $Runtime }
+}
+$runtimesToInstall = if ($normalizedRuntime -eq "all") { @("copilot", "claude-code", "codex", "gemini", "kiro") } else { @($normalizedRuntime) }
 
 foreach ($rt in $runtimesToInstall) {
     $dest = $destinations[$rt]
@@ -107,8 +114,8 @@ foreach ($rt in $runtimesToInstall) {
     }
 
     # Optional Copilot Agent wrapper installation
-    if ($rt -eq "github-copilot" -and $WithAgent) {
-        $agentSrc = Join-Path $repoRoot "assets\runtimes\github-copilot\agent-skill-builder.agent.md"
+    if ($rt -in @("copilot", "github-copilot") -and $WithAgent) {
+        $agentSrc = Join-Path $repoRoot "assets\runtimes\copilot\agent-skill-builder.agent.md"
         $agentDir = if ($Scope -eq "User") {
             Join-Path $userHome ".copilot\agents"
         } else {

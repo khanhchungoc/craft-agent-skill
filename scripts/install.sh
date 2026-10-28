@@ -42,13 +42,15 @@ echo "    Target:  $RUNTIME"
 declare -A DESTINATIONS
 
 if [[ "$SCOPE" == "user" ]]; then
-    DESTINATIONS["github-copilot"]="$HOME/.copilot/skills/craft-agent-skill"
+    DESTINATIONS["copilot"]="$HOME/.copilot/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$HOME/.gemini/antigravity/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$HOME/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$HOME/.agents/skills/craft-agent-skill"
     DESTINATIONS["antigravity"]="$HOME/.gemini/antigravity/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$HOME/.kiro/skills/craft-agent-skill"
 else
-    DESTINATIONS["github-copilot"]="$TARGET_PATH/.github/skills/craft-agent-skill"
+    DESTINATIONS["copilot"]="$TARGET_PATH/.github/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$TARGET_PATH/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$TARGET_PATH/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
     DESTINATIONS["antigravity"]="$TARGET_PATH/skills/craft-agent-skill"
@@ -56,7 +58,7 @@ else
 fi
 
 if [[ "$RUNTIME" == "all" ]]; then
-    RUNTIMES=("github-copilot" "claude-code" "codex" "antigravity" "kiro")
+    RUNTIMES=("copilot" "claude-code" "codex" "gemini" "kiro")
 else
     RUNTIMES=("$RUNTIME")
 fi
@@ -80,8 +82,8 @@ for rt in "${RUNTIMES[@]}"; do
         rm -rf "$dest/.git"
     fi
 
-    if [[ "$rt" == "github-copilot" && "$WITH_AGENT" == true ]]; then
-        agent_src="$REPO_ROOT/assets/runtimes/github-copilot/agent-skill-builder.agent.md"
+    if [[ ("$rt" == "copilot" || "$rt" == "github-copilot") && "$WITH_AGENT" == true ]]; then
+        agent_src="$REPO_ROOT/assets/runtimes/copilot/agent-skill-builder.agent.md"
         if [[ "$SCOPE" == "user" ]]; then
             agent_dir="$HOME/.copilot/agents"
         else

@@ -11,15 +11,15 @@ Official documentation checked: 2026-10-27. Select the installed harness and ver
 
 ## Templates
 
-- [Agent wrapper](../../assets/runtimes/github-copilot/agent.template.md)
-- [Skill wrapper](../../assets/runtimes/github-copilot/skill.template.md)
+- [Agent wrapper](../../assets/runtimes/copilot/agent.template.md)
+- [Skill wrapper](../../assets/runtimes/copilot/skill.template.md)
 - Body scaffolds: [agent](../../assets/agent.template.md), [skill](../../assets/skill.template.md).
 
 ## Runtime Review
 
 Check the chosen harness's tool inventory, actual skill discovery, picker visibility, invocation policy, and relative resource resolution. Do not infer that a Local tool name or UI feature works in a Copilot, Claude, or Codex session hosted in the same editor. Broad tool-bundle checks are local authoring conventions, not a cross-runtime schema.
 
-Validate the selected files structurally with `--runtime github-copilot`, then inspect the installed VS Code customization UI and use a harmless representative request if authorized and available. Record unavailable tool or discovery checks as unverified. Keep the common workflow and output requirements intact when adapting an existing asset.
+Validate the selected files structurally with `--runtime copilot`, then inspect the installed VS Code customization UI and use a harmless representative request if authorized and available. Record unavailable tool or discovery checks as unverified. Keep the common workflow and output requirements intact when adapting an existing asset.
 
 ## Sources
 

@@ -280,7 +280,7 @@ class ValidatorTests(unittest.TestCase):
     def test_runtime_templates_instantiate_to_valid_native_files(self):
         assets = SCRIPT.parents[1] / "assets" / "runtimes"
         destinations = {
-            "github-copilot": ".github/agents/reviewer.agent.md",
+            "copilot": ".github/agents/reviewer.agent.md",
             "claude-code": ".claude/agents/reviewer.md",
             "codex": ".codex/agents/reviewer.toml",
             "kiro": ".kiro/agents/reviewer.json",
@@ -298,7 +298,7 @@ class ValidatorTests(unittest.TestCase):
 
     def test_skill_templates_work_in_each_native_discovery_root(self):
         assets = SCRIPT.parents[1] / "assets" / "runtimes"
-        roots = {"github-copilot": ".github", "claude-code": ".claude", "codex": ".agents", "kiro": ".kiro"}
+        roots = {"copilot": ".github", "claude-code": ".claude", "codex": ".agents", "kiro": ".kiro"}
         for profile, root in roots.items():
             with self.subTest(profile=profile):
                 content = (assets / profile / "skill.template.md").read_text(encoding="utf-8")

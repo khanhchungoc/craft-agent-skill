@@ -1,6 +1,6 @@
 ---
 name: craft-agent-skill
-description: "Create, update, or audit agents and skills for Claude Code, Codex, GitHub Copilot, and Kiro, using shared principles and runtime-specific templates."
+description: "Create, update, or audit agents and skills for Copilot, Claude Code, Codex, Gemini, and Kiro, using shared principles and runtime-specific templates."
 ---
 
 # Craft Agent & Skill
