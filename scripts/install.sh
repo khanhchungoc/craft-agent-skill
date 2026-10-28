@@ -43,13 +43,13 @@ if [[ "$SCOPE" == "user" ]]; then
     DESTINATIONS["copilot"]="$HOME/.copilot/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$HOME/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$HOME/.agents/skills/craft-agent-skill"
-    DESTINATIONS["gemini"]="$HOME/.gemini/antigravity/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$HOME/.gemini/config/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$HOME/.kiro/skills/craft-agent-skill"
 else
     DESTINATIONS["copilot"]="$TARGET_PATH/.github/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$TARGET_PATH/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
-    DESTINATIONS["gemini"]="$TARGET_PATH/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$TARGET_PATH/.kiro/skills/craft-agent-skill"
 fi
 
