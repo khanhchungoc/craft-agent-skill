@@ -1,0 +1,6 @@
+interface:
+  display_name: "<Display name>"
+  short_description: "<Short UI description>"
+  default_prompt: "<Example request using $skill-name>"
+# Automatic invocation remains at the runtime default. Add policy only for an
+# explicitly requested invocation-policy change; preserve existing fields.

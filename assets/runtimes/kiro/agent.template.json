@@ -1,0 +1,8 @@
+{
+  "name": "<agent-name>",
+  "description": "<Responsibility and distinguishing activation context>.",
+  "tools": ["read"],
+  "resources": [],
+  "permissions": {"rules": []},
+  "prompt": "<Compose the instructions from the shared agent scaffold. Select the actual task tools and skill resources for the confirmed Kiro version.>"
+}

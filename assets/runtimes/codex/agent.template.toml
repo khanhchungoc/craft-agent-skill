@@ -1,0 +1,5 @@
+name = "<agent-name>"
+description = "<When Codex should delegate to this agent>."
+developer_instructions = """
+<Compose the instructions from the shared agent scaffold. Refer to discovered skills by their callable names and provide the inputs and output contract the delegated task needs.>
+"""
