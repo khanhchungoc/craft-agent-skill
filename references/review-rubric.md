@@ -76,7 +76,7 @@ Select relevant checks from the dimensions below. Mark an unexercised capability
 ### 5. Runtime, Tools, and Domain Grounding
 
 - Validate syntax and supported metadata for the intended consumer. Separate platform requirements from editorial conventions; use authoritative current documentation when a platform claim is uncertain.
-- Check new customization destinations and package ownership against the [artifact layout](../SKILL.md#final-artifact-layout). Preserve existing locations for updates unless a move or rename is authorized, and check affected callers when paths change.
+- Check new customization destinations and package ownership against the [native layout matrix](runtime-selection.md#supported-profiles--native-layout-matrix). Preserve existing locations for updates unless a move or rename is authorized, and check affected callers when paths change.
 - Verify declared tools against the actual environment. Review capabilities and permissions rather than assuming a tool name guarantees availability or authority.
 - Are executable commands, paths, runtime dependencies, and argument names grounded in the actual helper or native help? Do documented invocations work with spaces, missing inputs, and expected error statuses where relevant?
 - If scripts are introduced, do they provide useful native help, validate inputs, report errors clearly, and avoid unintended side effects? Check newly changed behavior, not only the happy path.

@@ -93,7 +93,7 @@ Inspect actual files and interfaces before asking the user to reconstruct them. 
 
 ### 4. Output Contract and Intended Consumers
 
-List the concrete deliverables separately from the overall goal. Establish whether each artifact is created, updated, returned in chat, or passed to a tool; its required name and location; its format or schema; required identifiers and metadata; and the rule for preserving existing content. For final agent/skill files, use the [artifact layout](../SKILL.md#final-artifact-layout) and selected runtime profile; these resolve the normal destination once runtime and scope are known. Ask about location only when the request introduces a material exception or conflict. Establish destinations for the artifacts the generated customization produces separately.
+List the concrete deliverables separately from the overall goal. Establish whether each artifact is created, updated, returned in chat, or passed to a tool; its required name and location; its format or schema; required identifiers and metadata; and the rule for preserving existing content. For final agent/skill files, use the [native layout matrix](runtime-selection.md#supported-profiles--native-layout-matrix) to resolve the destination once runtime and scope are known. Ask about location only when the request introduces a material exception or conflict. Establish destinations for the artifacts the generated customization produces separately.
 
 Identify who or what consumes each output and determine the structure from that consumer's needs:
 

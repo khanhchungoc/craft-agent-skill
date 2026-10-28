@@ -20,3 +20,4 @@ Official documentation checked: 2026-10-28. This profile covers Google Gemini CL
 Ensure frontmatter contains `name` and a concise `description` for routing. Verify tool execution permissions and paths relative to the active workspace.
 
 Validate files with `--runtime gemini` or `--runtime universal`.
+
