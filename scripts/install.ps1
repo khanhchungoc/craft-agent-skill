@@ -122,3 +122,4 @@ foreach ($rt in $runtimesToInstall) {
 }
 
 Write-Host "==> Installation complete!" -ForegroundColor Cyan
+
