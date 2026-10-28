@@ -32,7 +32,7 @@ Mount the skill inside your repository:
 # Submodule or direct clone
 git submodule add https://github.com/khanhchungoc/craft-agent-skill.git .github/skills/craft-agent-skill
 ```
-> **Optional Agent Wrapper**: If you also want a dedicated `@agent-skill-builder` chat participant in Copilot, copy [assets/runtimes/vscode-copilot/agent-skill-builder.agent.md](assets/runtimes/vscode-copilot/agent-skill-builder.agent.md) into `.github/agents/agent-skill-builder.agent.md`.
+> **Optional Agent Wrapper**: If you also want a dedicated `@agent-skill-builder` chat participant in Copilot, copy [assets/runtimes/github-copilot/agent-skill-builder.agent.md](assets/runtimes/github-copilot/agent-skill-builder.agent.md) into `.github/agents/agent-skill-builder.agent.md`.
 
 ### 3. OpenAI Codex
 ```bash
@@ -59,7 +59,7 @@ craft-agent-skill/
 │       ├── claude-code/              # Claude Code agent and skill wrappers
 │       ├── codex/                    # Codex TOML and YAML agent/skill wrappers
 │       ├── kiro/                     # Kiro JSON and Markdown wrappers
-│       └── vscode-copilot/           # VS Code Copilot agent and skill wrappers
+│       └── github-copilot/           # VS Code Copilot agent and skill wrappers
 ├── references/                       # In-depth architectural & review guides
 │   ├── elicitation-guide.md          # Progressive discovery and decision trees
 │   ├── review-rubric.md              # Quality dimensions and audit checklist

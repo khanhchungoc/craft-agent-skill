@@ -1,6 +1,6 @@
 ---
 name: craft-agent-skill
-description: "Create, update, or audit agents and skills for Claude Code, Codex, VS Code/Copilot, and Kiro, using shared principles and runtime-specific templates."
+description: "Create, update, or audit agents and skills for Claude Code, Codex, GitHub Copilot, and Kiro, using shared principles and runtime-specific templates."
 ---
 
 # Craft Agent & Skill
@@ -31,21 +31,23 @@ Follow the repository [README.md](README.md) while editing this repository. Do n
 
 Keep shared purpose and routing here. Move substantial conditional detail into linked resources. Choose examples, structured data, or prose according to the actual consumer; neither a persona block nor a rigid output schema is required for every task.
 
-## Final Artifact Layout
+## Final Artifact Layout & Skill Anatomy
 
-The selected [runtime profile](references/runtime-selection.md#supported-profiles) owns native agent/skill paths and wrappers. Establish project versus personal scope before writing. There is no universal `.github/agents/` destination for all runtimes.
+The selected [runtime profile](references/runtime-selection.md#supported-profiles--native-layout-matrix) owns native filesystem destinations, discovery roots, and agent wrapper formats. Concrete agent files (`.agent.md`, `.toml`, `.json`) belong at their profile's designated agent path (e.g., `.github/agents/`, `.codex/agents/`, `.claude/agents/`).
+
+Portable skills created or audited by this builder follow a standard package anatomy under the target runtime's skill root:
 
 ```text
 <selected-runtime-skill-root>/
   <skill-name>/
-    SKILL.md
+    SKILL.md       # Canonical skill workflow entrypoint
     references/    # Optional execution guidance, schemas, or detailed examples
     scripts/       # Optional executable helpers and their dependencies
     assets/        # Optional templates or resources used in generated outputs
     tests/         # Optional meaningful regression checks and fixtures
 ```
 
-- Generate agents in their profile's native format and destination. Add optional skill metadata only when needed and supported by that profile.
+- Generate agents in their profile's native format and destination as defined in [runtime selection](references/runtime-selection.md). Add optional skill metadata only when needed and supported by that profile.
 - For new portable skills, use a lowercase hyphenated folder matching explicit frontmatter `name`, and supply `description`. These are builder authoring conventions; native defaults and optional fields vary. Create only useful supporting directories.
 - Keep skill-specific resources inside their owning package. Link shared rules from their existing canonical owners rather than copying them into each package.
 - Resolve links, command working directories, resource URIs, and preload bindings using the selected runtime. A Markdown link does not necessarily register or preload a skill.

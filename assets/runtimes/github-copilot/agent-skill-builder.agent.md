@@ -1,6 +1,6 @@
 ---
 name: agent-skill-builder
-description: "Build and review agents and skills for Claude Code, Codex, VS Code/Copilot, and Kiro; adapt instructions to their target runtime."
+description: "Build and review agents and skills for Claude Code, Codex, GitHub Copilot, and Kiro; adapt instructions to their target runtime."
 tools:
   - search
   - agent

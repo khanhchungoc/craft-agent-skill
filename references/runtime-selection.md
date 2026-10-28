@@ -1,12 +1,12 @@
 # Runtime Selection and Composition
 
-This reference owns target-runtime discovery and profile selection. The [shared rubric](review-rubric.md) owns universal quality principles; each profile owns native layout, templates, and runtime-specific review checks.
+This reference owns target-runtime discovery, profile selection, and native artifact layout. The [shared rubric](review-rubric.md) owns universal quality principles; each profile owns native layout, templates, and runtime-specific review checks.
 
 ## Establish the Target Before Choosing a Format
 
 Recover an explicit target from the request or approved specification. Existing files identify the source format, not necessarily the intended destination. The editor, model provider, and agent harness are separate choices: using a Claude model in Copilot does not make the consumer Claude Code, and using Codex in VS Code does not make the consumer Copilot.
 
-If unresolved, ask a focused question such as: "Where will these customizations run: Claude Code, Codex, VS Code with Copilot/Local, Kiro, or another harness?" For multiple targets, identify every target explicitly. An existing asset's location is evidence to confirm, not permission to choose a new destination silently.
+If unresolved, ask a focused question such as: "Where will these customizations run: GitHub Copilot, Claude Code, Codex, Kiro, or another harness?" For multiple targets, identify every target explicitly. An existing asset's location is evidence to confirm, not permission to choose a new destination silently.
 
 For a narrow in-place update without a migration request, retain an established consumer supported by the existing asset and caller context; do not reopen runtime selection merely to edit wording. Ask when destination, format, or required capabilities are materially uncertain.
 
@@ -25,14 +25,16 @@ Resolve these material details from evidence or clarification:
 
 Pause only dependent scaffolding when the harness or another material contract is unknown. Continue collecting shared workflow requirements. Do not install runtimes, alter global configuration, grant permissions, or activate generated agents merely to author templates.
 
-## Supported Profiles
+## Supported Profiles & Native Layout Matrix
 
-| Profile ID | Consumer | Native rules and templates |
-|---|---|---|
-| `vscode-copilot` | VS Code Copilot or Local harness; record which | [VS Code profile](runtimes/vscode-copilot.md) |
-| `claude-code` | Claude Code local agent/skill files; distinguish other hosted Claude surfaces | [Claude Code profile](runtimes/claude-code.md) |
-| `codex` | Codex project/personal custom agents and local skills | [Codex profile](runtimes/codex.md) |
-| `kiro` | Kiro; record IDE/CLI/Web surface and version | [Kiro profile](runtimes/kiro.md) |
+Each profile owns the exact file formats and native filesystem destinations for agents and skills:
+
+| Profile ID | Consumer | Project Agent Path & Format | Project Skill Root | Personal / User Scope | Native Profile Details |
+|---|---|---|---|---|---|
+| `github-copilot` | GitHub Copilot (VS Code / Local) | `.github/agents/<name>.agent.md` (Markdown + YAML) | `.github/skills/<name>/` | `~/.copilot/agents/<name>.agent.md` | [GitHub Copilot profile](runtimes/github-copilot.md) |
+| `claude-code` | Claude Code CLI & Desktop | `.claude/agents/<name>.md` (Markdown + YAML) | `.claude/skills/<name>/` | `~/.claude/agents/`, `~/.claude/skills/` | [Claude Code profile](runtimes/claude-code.md) |
+| `codex` | OpenAI Codex | `.codex/agents/<name>.toml` (TOML format) | `.agents/skills/<name>/` | `~/.codex/agents/`, `~/.agents/skills/` | [Codex profile](runtimes/codex.md) |
+| `kiro` | Kiro IDE / CLI | `.kiro/agents/<name>.json` (or `.md`) | `.kiro/skills/<name>/` | Surface-dependent | [Kiro profile](runtimes/kiro.md) |
 
 For another runtime, inspect its current official customization documentation and add a profile/templates before claiming support. Do not reinterpret another profile's metadata as equivalent. For a legacy version, verify that version's contract; current templates are not evidence of backward compatibility.
 
@@ -44,4 +46,4 @@ For another runtime, inspect its current official customization documentation an
 4. For multiple targets, keep one maintained owner for shared procedural rules when all selected consumers can actually access it. Use supported links, discovery locations, or a deliberate packaging process. Do not assume a Markdown link installs a skill or that every runtime follows the same symlinks, resource URIs, or preload fields.
 5. Report validation per runtime. Syntax/structural lint, native discovery, and observed task behavior are separate evidence. A pass for one wrapper does not establish compatibility for the others.
 
-The builder currently runs from this repository's VS Code-format entrypoint. That host location does not constrain the runtime of the assets it authors. Preserve existing host files unless migration is explicitly requested.
+The builder authors customizations for target environments regardless of where the builder itself is executed. Preserve existing host files unless migration is explicitly requested.
