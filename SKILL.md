@@ -17,8 +17,8 @@ Follow the repository [README.md](README.md) while editing this repository. Do n
 | [Elicitation guide](references/elicitation-guide.md) | Discovery coverage and resolving missing decisions | Creating or materially changing a workflow; unresolved material decisions |
 | [Session distillation](references/session-distillation.md) | Translating feedback without changing its scope | Improving instructions from a conversation or failure |
 | [Review rubric](references/review-rubric.md) | Universal quality criteria and finding format | Reviewing an asset together with its selected runtime profile |
-| [Agent body scaffold](assets/agent.template.md) | Shared instruction structure | Composing a native agent wrapper |
-| [Skill body scaffold](assets/skill.template.md) | Shared workflow structure | Composing a native skill wrapper |
+| [Runtime agent templates](assets/runtimes/) | Native agent templates (Copilot, Claude, Codex, Kiro) | Composing a platform-specific agent |
+| [Universal skill template](assets/skill.template.md) | Universal workflow structure | Composing any new skill package |
 | [Validator](scripts/validate_agent_skill.py) | Executable structural checks and CLI help | Verifying files; change it when changing a lint rule |
 
 ## Shared Workflow

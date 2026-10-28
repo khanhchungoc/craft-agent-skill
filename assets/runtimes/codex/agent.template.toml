@@ -1,5 +1,17 @@
 name = "<agent-name>"
 description = "<When Codex should delegate to this agent>."
 developer_instructions = """
-<Compose the instructions from the shared agent scaffold. Refer to discovered skills by their callable names and provide the inputs and output contract the delegated task needs.>
+# <Agent Name>
+
+<Define the responsibility, domain context, and operational boundaries.>
+
+## Discovered Skills & Invocations
+Refer to discovered skills by their callable names ($skill-name).
+
+## Workflow
+1. <Describe the coordination steps.>
+2. <Provide the inputs and output contract the delegated task needs.>
+
+## Output
+<State the expected deliverable and evidence needed to establish completion.>
 """

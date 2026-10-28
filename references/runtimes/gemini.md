@@ -12,8 +12,7 @@ Official documentation checked: 2026-10-28. This profile covers Google Gemini CL
 
 ## Templates
 
-- [Skill wrapper](../../assets/runtimes/gemini/skill.template.md)
-- Body scaffolds: [agent](../../assets/agent.template.md), [skill](../../assets/skill.template.md).
+- [Universal skill template](../../assets/skill.template.md)
 
 ## Runtime Review
 

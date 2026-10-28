@@ -11,9 +11,8 @@ Official documentation checked: 2026-10-27. This profile covers local Claude Cod
 
 ## Templates
 
-- [Subagent wrapper](../../assets/runtimes/claude-code/agent.template.md)
-- [Skill wrapper](../../assets/runtimes/claude-code/skill.template.md)
-- Body scaffolds: [agent](../../assets/agent.template.md), [skill](../../assets/skill.template.md).
+- [Subagent template](../../assets/runtimes/claude-code/agent.template.md)
+- [Universal skill template](../../assets/skill.template.md)
 
 ## Runtime Review
 

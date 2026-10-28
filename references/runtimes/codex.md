@@ -12,10 +12,9 @@ Official OpenAI documentation checked: 2026-10-27. Confirm the target Codex surf
 
 ## Templates
 
-- [Agent TOML](../../assets/runtimes/codex/agent.template.toml)
-- [Skill wrapper](../../assets/runtimes/codex/skill.template.md)
+- [Agent TOML template](../../assets/runtimes/codex/agent.template.toml)
 - [Optional skill UI metadata](../../assets/runtimes/codex/openai.template.yaml)
-- Body scaffolds: [agent](../../assets/agent.template.md), [skill](../../assets/skill.template.md).
+- [Universal skill template](../../assets/skill.template.md)
 
 ## Runtime Review
 

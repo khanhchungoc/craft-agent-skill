@@ -42,7 +42,7 @@ For another runtime, inspect its current official customization documentation an
 ## Compose Shared Logic with Native Wrappers
 
 1. Establish the shared task, input/output contracts, discovery decisions, and verification using [elicitation-guide.md](elicitation-guide.md).
-2. Read only the selected runtime profiles. Use the common body scaffolds plus that profile's agent/skill wrapper; remove authoring notes and placeholders from the deliverable.
+2. Read only the selected runtime profiles. For agents, use the native agent template from assets/runtimes/; for skills, use assets/skill.template.md. Replace placeholders and remove authoring notes from the deliverable.
 3. Apply the shared rubric and each selected profile's native checks. Preserve a requirement that the target cannot express as an explicit limitation or unresolved migration item, rather than silently dropping it.
 4. For multiple targets, keep one maintained owner for shared procedural rules when all selected consumers can actually access it. Use supported links, discovery locations, or a deliberate packaging process. Do not assume a Markdown link installs a skill or that every runtime follows the same symlinks, resource URIs, or preload fields.
 5. Report validation per runtime. Syntax/structural lint, native discovery, and observed task behavior are separate evidence. A pass for one wrapper does not establish compatibility for the others.

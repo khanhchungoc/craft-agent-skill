@@ -3,9 +3,21 @@ name: <agent-name>
 description: "<Responsibility and distinguishing activation context>."
 tools:
   - read
+  - write
+  - shell
 resources: []
 permissions:
   rules: []
 ---
 
-<Compose the body from the shared agent scaffold. Select the actual tools and resource URIs for the confirmed current Kiro version.>
+# <Agent Name>
+
+<Define the responsibility, domain context, and operational boundaries.>
+
+## Workflow
+
+1. <Describe the coordination steps.>
+
+## Output
+
+<State the expected deliverable and evidence needed to establish completion.>

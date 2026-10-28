@@ -1,8 +1,10 @@
 {
   "name": "<agent-name>",
   "description": "<Responsibility and distinguishing activation context>.",
-  "tools": ["read"],
+  "tools": ["read", "write", "shell"],
   "resources": [],
-  "permissions": {"rules": []},
-  "prompt": "<Compose the instructions from the shared agent scaffold. Select the actual task tools and skill resources for the confirmed Kiro version.>"
+  "permissions": {
+    "rules": []
+  },
+  "prompt": "# <Agent Name>\n\n<Define the responsibility, domain context, and scope.>\n\n## Workflow\n1. <Describe the coordination steps.>\n\n## Output\n<State the expected deliverable and evidence.>"
 }

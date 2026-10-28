@@ -11,9 +11,8 @@ Official documentation checked: 2026-10-27. Select the installed harness and ver
 
 ## Templates
 
-- [Agent wrapper](../../assets/runtimes/copilot/agent.template.md)
-- [Skill wrapper](../../assets/runtimes/copilot/skill.template.md)
-- Body scaffolds: [agent](../../assets/agent.template.md), [skill](../../assets/skill.template.md).
+- [Agent template](../../assets/runtimes/copilot/agent.template.md)
+- [Universal skill template](../../assets/skill.template.md)
 
 ## Runtime Review
 

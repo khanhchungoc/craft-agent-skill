@@ -1,12 +1,11 @@
 # Kiro
 
-Official documentation checked: 2026-10-27. The current template baseline is IDE 1.x / CLI V3. Identify the surface and version; do not silently convert a CLI 2.x or IDE 0.x deployment using current assumptions.
+Official documentation checked: 2026-10-27. Confirm the target Kiro version and verify whether it uses structured JSON or frontmatter Markdown for custom agents.
 
 ## Native Layout and Semantics
 
-- Project agents: `.kiro/agents/<name>.json` or `.kiro/agents/<name>.md`; personal equivalents live in `~/.kiro/agents/`. JSON configuration and YAML-frontmatter/Markdown profiles have corresponding fields; the JSON template below uses an inline `prompt`.
-- Project skills: `.kiro/skills/<name>/SKILL.md`; personal: `~/.kiro/skills/<name>/SKILL.md`. Skills activate through matching or explicit slash invocation. Steering and powers are different customization mechanisms.
-- Agent `resources` can use `skill://` for progressive skill loading and `file://` for startup context. A `prompt` file URI resolves relative to the agent config directory. Do not assume resource schemes are portable to another runtime.
+- Project agent: `.kiro/agents/<name>.json` (or `.kiro/agents/<name>.md`). Current versions configure tools, resource URIs, and permission rules within the profile.
+- Project skills: prefer `.kiro/skills/<name>/SKILL.md`. Discoverable locations also include parent working directories.
 - Current permission configuration uses `permissions.rules`. Legacy `allowedTools`/`toolsSettings` profiles may require the documented upgrade path. Do not introduce broad preapprovals as part of authoring.
 - Project agent selection differs by surface: local IDE/CLI can select a primary custom agent; Web delegation and Mobile availability have documented limits.
 
@@ -14,8 +13,7 @@ Official documentation checked: 2026-10-27. The current template baseline is IDE
 
 - [Current JSON agent](../../assets/runtimes/kiro/agent.template.json)
 - [Current Markdown agent](../../assets/runtimes/kiro/agent.template.md)
-- [Skill wrapper](../../assets/runtimes/kiro/skill.template.md)
-- Body scaffolds: [agent](../../assets/agent.template.md), [skill](../../assets/skill.template.md).
+- [Universal skill template](../../assets/skill.template.md)
 
 ## Runtime Review
 
@@ -25,6 +23,5 @@ Use `--runtime kiro` for basic syntax/structural checks. Verify native loading a
 
 ## Sources
 
-- [Agent formats, paths, surface support, and version differences](https://kiro.dev/docs/custom-agents/)
-- [Configuration and resource semantics](https://kiro.dev/docs/custom-agents/configuration-reference/)
-- [Skill locations and activation](https://kiro.dev/docs/skills/)
+- [Agent schemas, fields, tools, and permissions](https://kiro.dev/docs/custom-agents)
+- [Skill discovery and resource binding](https://kiro.dev/docs/skills)

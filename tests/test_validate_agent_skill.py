@@ -297,13 +297,13 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(self.rules(self.native(".kiro/agents/reviewer.md", content)), set())
 
     def test_skill_templates_work_in_each_native_discovery_root(self):
-        assets = SCRIPT.parents[1] / "assets" / "runtimes"
-        roots = {"copilot": ".github", "claude-code": ".claude", "codex": ".agents", "kiro": ".kiro"}
-        for profile, root in roots.items():
-            with self.subTest(profile=profile):
-                content = (assets / profile / "skill.template.md").read_text(encoding="utf-8")
-                content = content.replace("<skill-name>", "sample")
-                content = re.sub(r"<[^>]+>", "Review supplied artifacts with evidence", content)
+        template = SCRIPT.parents[1] / "assets" / "skill.template.md"
+        content = template.read_text(encoding="utf-8")
+        content = content.replace("<skill-name>", "sample")
+        content = re.sub(r"<[^>]+>", "Review supplied artifacts with evidence", content)
+        roots = (".github", ".claude", ".agents", ".kiro", "skills")
+        for root in roots:
+            with self.subTest(root=root):
                 self.assertEqual(self.rules(self.native(f"{root}/skills/sample/SKILL.md", content)), set())
 
     def test_native_template_profile_takes_precedence_over_builder_host_path(self):
