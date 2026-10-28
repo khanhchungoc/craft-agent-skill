@@ -158,10 +158,10 @@ Inspect the assertions themselves: a condition that passes for clearly incorrect
 
 | Severity | Meaning | Example |
 |---|---|---|
-| Critical | A defect with credible severe consequences requiring immediate containment | Unauthorized destructive action or a demonstrated unbounded execution cycle with consequential side effects |
-| High | Demonstrated task failure, lost user constraint, material authority expansion, or a likely workflow blocker | A required decision is silently invented, or a supported execution mode cannot complete |
-| Medium | Material ambiguity, duplication, or dependency risk with a concrete impact | Conflicting caller instructions or an unavailable command with no valid recovery path |
-| Low | Optional clarity or maintainability improvement | Wording can be clearer without changing correct behavior |
+| 🔴 Critical | A defect with credible severe consequences requiring immediate containment | Unauthorized destructive action or a demonstrated unbounded execution cycle with consequential side effects |
+| 🟠 High | Demonstrated task failure, lost user constraint, material authority expansion, or a likely workflow blocker | A required decision is silently invented, or a supported execution mode cannot complete |
+| 🟡 Medium | Material ambiguity, duplication, or dependency risk with a concrete impact | Conflicting caller instructions or an unavailable command with no valid recovery path |
+| 🟢 Low | Optional clarity or maintainability improvement | Wording can be clearer without changing correct behavior |
 
 Assign severity from consequences, reach, and recoverability. Record confidence separately: verified behavior, source-supported risk, or hypothesis. A large file, missing persona block, or fixed number of supposedly wasted tokens does not determine severity.
 
@@ -169,7 +169,7 @@ Return a short assessment and, when multiple findings need tracking, a table:
 
 | ID | Severity | File / line | Evidence and impact | Suggested correction |
 |---|---|---|---|---|
-| F-01 | <severity> | <location> | <observed defect or explicitly labeled risk> | <scoped change> |
+| F-01 | `<emoji> <severity>` | <location> | <observed defect or explicitly labeled risk> | <scoped change> |
 
 Separate verified defects from hypotheses. Use an unmeasured health label only if useful; do not invent numeric quality scores. Include verification performed and relevant limits. Provide diffs when requested or needed for an approval still pending under the shared workflow.
 

@@ -3,7 +3,7 @@
 # Installs craft-agent-skill into target AI agent runtimes at either User (global) or Project level.
 #
 # Usage:
-#   ./scripts/install.sh [--scope user|project] [--runtime all|claude-code|github-copilot|codex|antigravity] [--mode symlink|copy] [--target-path <path>] [--with-agent]
+#   ./scripts/install.sh [--scope user|project] [--runtime all|copilot|claude-code|codex|gemini|kiro] [--mode symlink|copy] [--target-path <path>]
 #
 
 set -e
@@ -12,7 +12,6 @@ SCOPE="user"
 RUNTIME="all"
 MODE="symlink"
 TARGET_PATH="$(pwd)"
-WITH_AGENT=false
 
 while [[ "$#" -gt 0 ]]; do
     case $1 in
@@ -20,9 +19,8 @@ while [[ "$#" -gt 0 ]]; do
         --runtime|-r) RUNTIME="$2"; shift ;;
         --mode|-m) MODE="$2"; shift ;;
         --target-path|-t) TARGET_PATH="$2"; shift ;;
-        --with-agent) WITH_AGENT=true ;;
         --help|-h)
-            echo "Usage: $0 [--scope user|project] [--runtime all|claude-code|github-copilot|codex|antigravity] [--mode symlink|copy] [--with-agent]"
+            echo "Usage: $0 [--scope user|project] [--runtime all|copilot|claude-code|codex|gemini|kiro] [--mode symlink|copy]"
             exit 0
             ;;
         *) echo "Unknown parameter: $1"; exit 1 ;;
@@ -43,17 +41,15 @@ declare -A DESTINATIONS
 
 if [[ "$SCOPE" == "user" ]]; then
     DESTINATIONS["copilot"]="$HOME/.copilot/skills/craft-agent-skill"
-    DESTINATIONS["gemini"]="$HOME/.gemini/antigravity/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$HOME/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$HOME/.agents/skills/craft-agent-skill"
-    DESTINATIONS["antigravity"]="$HOME/.gemini/antigravity/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$HOME/.gemini/antigravity/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$HOME/.kiro/skills/craft-agent-skill"
 else
     DESTINATIONS["copilot"]="$TARGET_PATH/.github/skills/craft-agent-skill"
-    DESTINATIONS["gemini"]="$TARGET_PATH/skills/craft-agent-skill"
     DESTINATIONS["claude-code"]="$TARGET_PATH/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
-    DESTINATIONS["antigravity"]="$TARGET_PATH/skills/craft-agent-skill"
+    DESTINATIONS["gemini"]="$TARGET_PATH/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$TARGET_PATH/.kiro/skills/craft-agent-skill"
 fi
 
@@ -81,20 +77,6 @@ for rt in "${RUNTIMES[@]}"; do
         cp -R "$REPO_ROOT" "$dest"
         rm -rf "$dest/.git"
     fi
-
-    if [[ ("$rt" == "copilot" || "$rt" == "github-copilot") && "$WITH_AGENT" == true ]]; then
-        agent_src="$REPO_ROOT/assets/runtimes/copilot/agent-skill-builder.agent.md"
-        if [[ "$SCOPE" == "user" ]]; then
-            agent_dir="$HOME/.copilot/agents"
-        else
-            agent_dir="$TARGET_PATH/.github/agents"
-        fi
-        mkdir -p "$agent_dir"
-        agent_dest="$agent_dir/agent-skill-builder.agent.md"
-        echo "    Installing Copilot Agent wrapper -> $agent_dest"
-        cp "$agent_src" "$agent_dest"
-    fi
 done
 
 echo "==> Installation complete!"
-
