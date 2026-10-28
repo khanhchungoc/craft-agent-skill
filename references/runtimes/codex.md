@@ -4,16 +4,16 @@ Official OpenAI documentation checked: 2026-10-27. Confirm the target Codex surf
 
 ## Native Layout and Semantics
 
-- Project custom agent: `.codex/agents/<name>.toml`; personal: `~/.codex/agents/<name>.toml`. A standalone TOML agent requires `name`, `description`, and `developer_instructions`.
-- Repository skills: `.agents/skills/<name>/SKILL.md`; personal skills: `~/.agents/skills/<name>/SKILL.md`. Codex discovers repository locations along the working-directory ancestor chain. Existing system/plugin locations are separate from this authoring convention.
-- Project instructions belong in `AGENTS.md`, with documented override behavior. A custom agent is a delegation role, not a substitute instruction file or a VS Code picker definition.
-- Skills support explicit `$skill-name` invocation and automatic matching. Optional `agents/openai.yaml` carries UI/dependency/invocation metadata; automatic invocation remains enabled unless explicitly changed.
-- Custom agents inherit parent permissions/provider/MCP configuration. A native agent TOML file cannot replace those controls with a Copilot `tools` array or a new sandbox policy.
+- **Project custom agent**: `.codex/agents/<name>.toml`; personal: `~/.codex/agents/<name>.toml`. A standalone TOML agent requires `name`, `description`, and `developer_instructions`.
+- **Repository skills**: `.agents/skills/<name>/SKILL.md`; personal skills: `~/.agents/skills/<name>/SKILL.md`. Codex discovers repository locations along the working-directory ancestor chain. Existing system/plugin locations are separate from this authoring convention.
+- **Project instructions**: Belong in `AGENTS.md`, with documented override behavior. A custom agent is a delegation role, not a substitute instruction file or a VS Code picker definition.
+- **Skill UI metadata (`openai.yaml`)**: An optional companion file placed at `<skill-folder>/agents/openai.yaml`. Use this ONLY when authoring or packaging a skill for OpenAI Codex/ChatGPT that requires custom UI presentation (`display_name`, `short_description`, `default_prompt`) or custom invocation policy (e.g. disabling implicit triggering so the skill only runs when explicitly requested with `$skill-name`). Standard skills work with `SKILL.md` alone.
+- **Inherited permissions**: Custom agents inherit parent permissions/provider/MCP configuration. A native agent TOML file cannot replace those controls with a Copilot `tools` array or a new sandbox policy.
 
 ## Templates
 
-- [Agent TOML template](../../assets/runtimes/codex/agent.template.toml)
-- [Optional skill UI metadata](../../assets/runtimes/codex/openai.template.yaml)
+- [Agent TOML template](../../assets/runtimes/codex/agent.template.toml) (for `.codex/agents/<name>.toml`)
+- [Optional skill UI metadata](../../assets/runtimes/codex/openai.template.yaml) (for `<skill-folder>/agents/openai.yaml`)
 - [Universal skill template](../../assets/skill.template.md)
 
 ## Runtime Review

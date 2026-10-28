@@ -283,18 +283,15 @@ class ValidatorTests(unittest.TestCase):
             "copilot": ".github/agents/reviewer.agent.md",
             "claude-code": ".claude/agents/reviewer.md",
             "codex": ".codex/agents/reviewer.toml",
-            "kiro": ".kiro/agents/reviewer.json",
+            "kiro": ".kiro/agents/reviewer.md",
         }
         for profile, destination in destinations.items():
             with self.subTest(profile=profile):
                 suffix = Path(destination).suffix
-                content = (assets / profile / f"agent.template{suffix}").read_text(encoding="utf-8")
-                content = content.replace("<agent-name>", "reviewer")
-                content = re.sub(r"<[^>]+>", "Review supplied artifacts and return evidence-backed findings", content)
-                self.assertEqual(self.rules(self.native(destination, content)), set())
-        content = (assets / "kiro" / "agent.template.md").read_text(encoding="utf-8")
-        content = re.sub(r"<[^>]+>", "reviewer", content)
-        self.assertEqual(self.rules(self.native(".kiro/agents/reviewer.md", content)), set())
+                template_content = (assets / profile / f"agent.template{suffix}").read_text(encoding="utf-8")
+                template_content = template_content.replace("<agent-name>", "reviewer")
+                template_content = re.sub(r"<[^>]+>", "Review supplied artifacts and return evidence-backed findings", template_content)
+                self.assertEqual(self.rules(self.native(destination, template_content)), set())
 
     def test_skill_templates_work_in_each_native_discovery_root(self):
         template = SCRIPT.parents[1] / "assets" / "skill.template.md"
