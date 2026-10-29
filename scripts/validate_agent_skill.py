@@ -26,8 +26,8 @@ try:
 except ImportError:
     yaml = None
 
-RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", "claude-code", "codex", "kiro", "gemini", "antigravity")
-AGENT_ROOTS = {".github": "copilot", ".claude": "claude-code",
+RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", "claude", "claude-code", "codex", "kiro", "gemini", "antigravity")
+AGENT_ROOTS = {".github": "copilot", ".claude": "claude",
                ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini"}
 SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
 
@@ -38,6 +38,8 @@ def runtime_for(path: Path, selected: str = "auto") -> str:
             return "copilot"
         if selected == "antigravity":
             return "gemini"
+        if selected == "claude-code":
+            return "claude"
         return selected
     parts = path.parts
     # Authoring assets live under assets/runtimes but target their named native profile.
@@ -48,6 +50,8 @@ def runtime_for(path: Path, selected: str = "auto") -> str:
                 return "copilot"
             if target == "antigravity":
                 return "gemini"
+            if target == "claude-code":
+                return "claude"
             return target
     for root, runtime in AGENT_ROOTS.items():
         if root in parts:
@@ -161,7 +165,7 @@ def metadata_findings(path: Path, data: dict, key_lines: dict, runtime: str,
             issues.append(finding(path, key_lines.get("skills", 1), "unsupported-frontmatter",
                                   "Link procedural skills in the agent body instead of a 'skills' field."))
         tools = data.get("tools", [])
-        if isinstance(tools, str) and runtime in ("claude-code", "copilot", "github-copilot", "vscode-copilot"):
+        if isinstance(tools, str) and runtime in ("claude", "claude-code", "copilot", "github-copilot", "vscode-copilot"):
             tools = [part.strip() for part in tools.split(",")]
         if runtime == "codex" and "tools" in data:
             issues.append(finding(path, key_lines.get("tools", 1), "runtime-field",
@@ -172,7 +176,7 @@ def metadata_findings(path: Path, data: dict, key_lines: dict, runtime: str,
         elif runtime in ("copilot", "github-copilot", "vscode-copilot") and "vscode" in tools:
             issues.append(finding(path, key_lines.get("tools", 1), "broad-tool-permission",
                                   "Use the required vscode tool names instead of the broad 'vscode' bundle."))
-        if runtime == "claude-code" and "skills" in data:
+        if runtime in ("claude", "claude-code") and "skills" in data:
             skills = data["skills"]
             if not isinstance(skills, list) or any(not isinstance(item, str) or not item.strip() for item in skills):
                 issues.append(finding(path, key_lines.get("skills", 1), "frontmatter-skills",

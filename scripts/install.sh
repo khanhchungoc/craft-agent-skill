@@ -3,7 +3,7 @@
 # Installs craft-agent-skill into target AI agent runtimes at either User (global) or Project level.
 #
 # Usage:
-#   ./scripts/install.sh [--scope user|project] [--runtime all|copilot|claude-code|codex|gemini|kiro] [--mode symlink|copy] [--target-path <path>]
+#   ./scripts/install.sh [--scope user|project] [--runtime all|copilot|claude|codex|gemini|antigravity|kiro] [--mode symlink|copy] [--target-path <path>]
 #
 
 set -e
@@ -20,7 +20,7 @@ while [[ "$#" -gt 0 ]]; do
         --mode|-m) MODE="$2"; shift ;;
         --target-path|-t) TARGET_PATH="$2"; shift ;;
         --help|-h)
-            echo "Usage: $0 [--scope user|project] [--runtime all|copilot|claude-code|codex|gemini|antigravity|kiro] [--mode symlink|copy]"
+            echo "Usage: $0 [--scope user|project] [--runtime all|copilot|claude|claude-code|codex|gemini|antigravity|kiro] [--mode symlink|copy]"
             exit 0
             ;;
         *) echo "Unknown parameter: $1"; exit 1 ;;
@@ -41,22 +41,26 @@ declare -A DESTINATIONS
 
 if [[ "$SCOPE" == "user" ]]; then
     DESTINATIONS["copilot"]="$HOME/.copilot/skills/craft-agent-skill"
-    DESTINATIONS["claude-code"]="$HOME/.claude/skills/craft-agent-skill"
+    DESTINATIONS["claude"]="$HOME/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$HOME/.agents/skills/craft-agent-skill"
     DESTINATIONS["gemini"]="$HOME/.gemini/skills/craft-agent-skill"
     DESTINATIONS["antigravity"]="$HOME/.gemini/config/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$HOME/.kiro/skills/craft-agent-skill"
 else
     DESTINATIONS["copilot"]="$TARGET_PATH/.github/skills/craft-agent-skill"
-    DESTINATIONS["claude-code"]="$TARGET_PATH/.claude/skills/craft-agent-skill"
+    DESTINATIONS["claude"]="$TARGET_PATH/.claude/skills/craft-agent-skill"
     DESTINATIONS["codex"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
     DESTINATIONS["gemini"]="$TARGET_PATH/.gemini/skills/craft-agent-skill"
     DESTINATIONS["antigravity"]="$TARGET_PATH/.agents/skills/craft-agent-skill"
     DESTINATIONS["kiro"]="$TARGET_PATH/.kiro/skills/craft-agent-skill"
 fi
 
+if [[ "$RUNTIME" == "claude-code" ]]; then
+    RUNTIME="claude"
+fi
+
 if [[ "$RUNTIME" == "all" ]]; then
-    RUNTIMES=("copilot" "claude-code" "codex" "gemini" "antigravity" "kiro")
+    RUNTIMES=("copilot" "claude" "codex" "gemini" "antigravity" "kiro")
 else
     RUNTIMES=("$RUNTIME")
 fi

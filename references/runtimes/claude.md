@@ -11,8 +11,8 @@ Official documentation checked: 2026-10-27. Covers local Claude Code CLI/Desktop
 
 ## Templates & Validation
 
-- **Subagent template:** [agent.template.md](../../assets/runtimes/claude-code/agent.template.md)
-- **Lint:** `python scripts/validate_agent_skill.py --runtime claude-code --path <target>` (verify discovery via `/agents` in CLI when available).
+- **Subagent template:** [agent.template.md](../../assets/runtimes/claude/agent.template.md)
+- **Lint:** `python scripts/validate_agent_skill.py --runtime claude --path <target>` (verify discovery via `/agents` in CLI when available).
 
 ## Sources
 

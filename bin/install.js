@@ -62,14 +62,14 @@ Usage:
 Options:
   -g, --global              Install globally in user home directory (default)
   -p, --project             Install in current project / workspace directory
-  -a, -r, --runtime <name>  Target runtime: copilot, claude-code, codex, gemini, antigravity, kiro, or all (default: all)
+  -a, -r, --runtime <name>  Target runtime: copilot, claude, codex, gemini, antigravity, kiro, or all (default: all)
   -m, --mode <symlink|copy> Installation method (auto-detected: copy for npx, symlink for local clones)
   -h, --help                Show this help message
 
 Supported Runtimes:
   • \x1b[36mantigravity\x1b[0m  Antigravity IDE (with slash command support)
   • \x1b[36mcopilot\x1b[0m      GitHub Copilot / VS Code
-  • \x1b[36mclaude-code\x1b[0m  Claude Code CLI
+  • \x1b[36mclaude\x1b[0m      Claude Code CLI
   • \x1b[36mcodex\x1b[0m        OpenAI Codex
   • \x1b[36mgemini\x1b[0m       Gemini CLI
   • \x1b[36mkiro\x1b[0m         Kiro CLI & IDE
@@ -79,7 +79,7 @@ Supported Runtimes:
 const destinations = {
   user: {
     copilot: path.join(USER_HOME, '.copilot', 'skills', 'craft-agent-skill'),
-    'claude-code': path.join(USER_HOME, '.claude', 'skills', 'craft-agent-skill'),
+    claude: path.join(USER_HOME, '.claude', 'skills', 'craft-agent-skill'),
     codex: path.join(USER_HOME, '.agents', 'skills', 'craft-agent-skill'),
     gemini: path.join(USER_HOME, '.gemini', 'skills', 'craft-agent-skill'),
     antigravity: path.join(USER_HOME, '.gemini', 'config', 'skills', 'craft-agent-skill'),
@@ -87,7 +87,7 @@ const destinations = {
   },
   project: {
     copilot: path.join(targetPath, '.github', 'skills', 'craft-agent-skill'),
-    'claude-code': path.join(targetPath, '.claude', 'skills', 'craft-agent-skill'),
+    claude: path.join(targetPath, '.claude', 'skills', 'craft-agent-skill'),
     codex: path.join(targetPath, '.agents', 'skills', 'craft-agent-skill'),
     gemini: path.join(targetPath, '.gemini', 'skills', 'craft-agent-skill'),
     antigravity: path.join(targetPath, '.agents', 'skills', 'craft-agent-skill'),
@@ -98,9 +98,11 @@ const destinations = {
 let normalizedRuntime = runtime;
 if (normalizedRuntime === 'github-copilot' || normalizedRuntime === 'vscode-copilot') {
   normalizedRuntime = 'copilot';
+} else if (normalizedRuntime === 'claude-code') {
+  normalizedRuntime = 'claude';
 }
 
-const allRuntimes = ['copilot', 'claude-code', 'codex', 'gemini', 'antigravity', 'kiro'];
+const allRuntimes = ['copilot', 'claude', 'codex', 'gemini', 'antigravity', 'kiro'];
 const runtimesToInstall = normalizedRuntime === 'all' ? allRuntimes : [normalizedRuntime];
 
 for (const rt of runtimesToInstall) {

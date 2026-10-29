@@ -23,7 +23,7 @@ npx khanhchungoc/craft-agent-skill
 * **Target a specific assistant:**
   ```bash
   npx khanhchungoc/craft-agent-skill -a antigravity
-  npx khanhchungoc/craft-agent-skill -a claude-code
+  npx khanhchungoc/craft-agent-skill -a claude
   npx khanhchungoc/craft-agent-skill -a copilot
   ```
 
@@ -76,8 +76,8 @@ git submodule add https://github.com/khanhchungoc/craft-agent-skill.git .github/
 
 ### PowerShell / Bash Script Installers
 If you have cloned this repository locally, you can target specific runtimes:
-* **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User -Runtime claude-code` (options: `all`, `copilot`, `claude-code`, `codex`, `gemini`, `antigravity`, `kiro`)
-* **macOS / Linux:** `./scripts/install.sh --scope user --runtime claude-code` (options: `all`, `copilot`, `claude-code`, `codex`, `gemini`, `antigravity`, `kiro`)
+* **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User -Runtime claude` (options: `all`, `copilot`, `claude`, `codex`, `gemini`, `antigravity`, `kiro`)
+* **macOS / Linux:** `./scripts/install.sh --scope user --runtime claude` (options: `all`, `copilot`, `claude`, `codex`, `gemini`, `antigravity`, `kiro`)
 
 ### Built-in Linter & Validator
 Validate any agent or skill folder for syntax errors, platform compatibility, and broken links:

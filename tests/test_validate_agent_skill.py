@@ -237,7 +237,7 @@ class ValidatorTests(unittest.TestCase):
 
     def test_relocated_wrong_agent_formats_fail_with_explicit_runtime(self):
         cases = (("codex", "reviewer.json", '{"name":"reviewer","description":"Review changes.","prompt":"Return findings."}'),
-                 ("claude-code", "reviewer.toml", 'name="reviewer"\ndescription="Review changes."\ndeveloper_instructions="Return findings."'))
+                 ("claude", "reviewer.toml", 'name="reviewer"\ndescription="Review changes."\ndeveloper_instructions="Return findings."'))
         for runtime, name, content in cases:
             with self.subTest(runtime=runtime):
                 self.native(name, content)
@@ -281,7 +281,7 @@ class ValidatorTests(unittest.TestCase):
         assets = SCRIPT.parents[1] / "assets" / "runtimes"
         destinations = {
             "copilot": ".github/agents/reviewer.agent.md",
-            "claude-code": ".claude/agents/reviewer.md",
+            "claude": ".claude/agents/reviewer.md",
             "codex": ".codex/agents/reviewer.toml",
             "kiro": ".kiro/agents/reviewer.md",
         }
@@ -304,14 +304,15 @@ class ValidatorTests(unittest.TestCase):
                 self.assertEqual(self.rules(self.native(f"{root}/skills/sample/SKILL.md", content)), set())
 
     def test_native_template_profile_takes_precedence_over_builder_host_path(self):
-        path = Path(".github/skills/craft-agent-skill/assets/runtimes/claude-code/agent.template.md")
-        self.assertEqual(validator.runtime_for(path), "claude-code")
+        path = Path(".github/skills/craft-agent-skill/assets/runtimes/claude/agent.template.md")
+        self.assertEqual(validator.runtime_for(path), "claude")
 
     def test_runtime_aliases_and_antigravity(self):
         path = Path("sample/SKILL.md")
         self.assertEqual(validator.runtime_for(path, "antigravity"), "gemini")
         self.assertEqual(validator.runtime_for(path, "github-copilot"), "copilot")
         self.assertEqual(validator.runtime_for(path, "vscode-copilot"), "copilot")
+        self.assertEqual(validator.runtime_for(path, "claude-code"), "claude")
 
     @unittest.skipUnless(shutil.which("powershell"), "PowerShell is not installed")
     def test_powershell_entrypoint_preserves_json_flags_paths_and_exit_code(self):

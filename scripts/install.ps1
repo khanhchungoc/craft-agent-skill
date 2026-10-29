@@ -10,7 +10,7 @@
     'User' (global for current user) or 'Project' (current workspace directory). Default is 'User'.
 
 .PARAMETER Runtime
-    Target runtime harness: 'copilot', 'claude-code', 'codex', 'gemini', 'kiro', or 'all'. Default is 'all'.
+    Target runtime harness: 'copilot', 'claude', 'codex', 'gemini', 'kiro', or 'all'. Default is 'all'.
 
 .PARAMETER Mode
     'Symlink' (uses NTFS directory junction on Windows without requiring admin) or 'Copy'. Default is 'Symlink'.
@@ -19,8 +19,8 @@
     The workspace root for Project-level installation. Defaults to the current working directory.
 
 .EXAMPLE
-    # Install globally for Claude Code and Copilot
-    .\scripts\install.ps1 -Scope User -Runtime claude-code
+    # Install globally for Claude and Copilot
+    .\scripts\install.ps1 -Scope User -Runtime claude
 
     # Install into current project for Copilot
     .\scripts\install.ps1 -Scope Project -Runtime copilot
@@ -33,7 +33,7 @@ param (
     [ValidateSet("User", "Project")]
     [string]$Scope = "User",
 
-    [ValidateSet("all", "copilot", "github-copilot", "claude-code", "codex", "gemini", "antigravity", "kiro")]
+    [ValidateSet("all", "copilot", "github-copilot", "claude", "claude-code", "codex", "gemini", "antigravity", "kiro")]
     [string]$Runtime = "all",
 
     [ValidateSet("Symlink", "Copy")]
@@ -56,7 +56,7 @@ $destinations = @{}
 
 if ($Scope -eq "User") {
     $destinations["copilot"]        = Join-Path $userHome ".copilot\skills\craft-agent-skill"
-    $destinations["claude-code"]    = Join-Path $userHome ".claude\skills\craft-agent-skill"
+    $destinations["claude"]         = Join-Path $userHome ".claude\skills\craft-agent-skill"
     $destinations["codex"]          = Join-Path $userHome ".agents\skills\craft-agent-skill"
     $destinations["gemini"]         = Join-Path $userHome ".gemini\skills\craft-agent-skill"
     $destinations["antigravity"]    = Join-Path $userHome ".gemini\config\skills\craft-agent-skill"
@@ -64,7 +64,7 @@ if ($Scope -eq "User") {
 } else {
     $targetDir = (Resolve-Path $TargetPath).Path
     $destinations["copilot"]        = Join-Path $targetDir ".github\skills\craft-agent-skill"
-    $destinations["claude-code"]    = Join-Path $targetDir ".claude\skills\craft-agent-skill"
+    $destinations["claude"]         = Join-Path $targetDir ".claude\skills\craft-agent-skill"
     $destinations["codex"]          = Join-Path $targetDir ".agents\skills\craft-agent-skill"
     $destinations["gemini"]         = Join-Path $targetDir ".gemini\skills\craft-agent-skill"
     $destinations["antigravity"]    = Join-Path $targetDir ".agents\skills\craft-agent-skill"
@@ -73,9 +73,10 @@ if ($Scope -eq "User") {
 
 $normalizedRuntime = switch ($Runtime) {
     "github-copilot" { "copilot" }
+    "claude-code"    { "claude" }
     default          { $Runtime }
 }
-$runtimesToInstall = if ($normalizedRuntime -eq "all") { @("copilot", "claude-code", "codex", "gemini", "antigravity", "kiro") } else { @($normalizedRuntime) }
+$runtimesToInstall = if ($normalizedRuntime -eq "all") { @("copilot", "claude", "codex", "gemini", "antigravity", "kiro") } else { @($normalizedRuntime) }
 
 foreach ($rt in $runtimesToInstall) {
     $dest = $destinations[$rt]
