@@ -5,7 +5,7 @@ Official documentation checked: 2026-10-27. Use frontmatter Markdown as the stan
 ## Native Layout and Semantics
 
 - **Project agent**: Prefer `.kiro/agents/<name>.md`. Markdown frontmatter (`tools`, `resources`, `permissions`) combined with a Markdown body for instructions avoids escaping newlines in JSON strings. Kiro also accepts `.kiro/agents/<name>.json` (primarily used for machine generation).
-- **Project skills**: Prefer `.kiro/skills/<name>/SKILL.md`. Discoverable locations also include parent working directories.
+- **Project skills**: Prefer `.kiro/skills/<name>/SKILL.md`. Personal skills reside in `~/.kiro/skills/<name>/SKILL.md`. Discoverable locations also include parent working directories.
 - Current permission configuration uses `permissions.rules`. Legacy `allowedTools`/`toolsSettings` profiles may require the documented upgrade path. Do not introduce broad preapprovals as part of authoring.
 - Project agent selection differs by surface: local IDE/CLI can select a primary custom agent; Web delegation and Mobile availability have documented limits.
 

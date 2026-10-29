@@ -307,6 +307,12 @@ class ValidatorTests(unittest.TestCase):
         path = Path(".github/skills/craft-agent-skill/assets/runtimes/claude-code/agent.template.md")
         self.assertEqual(validator.runtime_for(path), "claude-code")
 
+    def test_runtime_aliases_and_antigravity(self):
+        path = Path("sample/SKILL.md")
+        self.assertEqual(validator.runtime_for(path, "antigravity"), "gemini")
+        self.assertEqual(validator.runtime_for(path, "github-copilot"), "copilot")
+        self.assertEqual(validator.runtime_for(path, "vscode-copilot"), "copilot")
+
     @unittest.skipUnless(shutil.which("powershell"), "PowerShell is not installed")
     def test_powershell_entrypoint_preserves_json_flags_paths_and_exit_code(self):
         path = self.write("folder with spaces/SKILL.md", 'name: sample\ndescription: "unterminated')

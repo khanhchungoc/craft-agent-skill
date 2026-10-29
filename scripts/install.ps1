@@ -109,10 +109,11 @@ foreach ($rt in $runtimesToInstall) {
         New-Item -ItemType Junction -Path $dest -Target $repoRoot | Out-Null
     } else {
         Write-Host "    Copying ($rt) -> $dest" -ForegroundColor Green
-        Copy-Item -Path $repoRoot -Destination $dest -Recurse -Force
-        # Clean up git artifacts in copy
-        $gitDir = Join-Path $dest ".git"
-        if (Test-Path $gitDir) { Remove-Item $gitDir -Recurse -Force }
+        New-Item -ItemType Directory -Path $dest -Force | Out-Null
+        $ignored = @('.git', 'node_modules', '.github', 'agent', '.agents', '.claude', 'tests', 'skills-lock.json')
+        Get-ChildItem -Path $repoRoot -Force | Where-Object { $_.Name -notin $ignored } | ForEach-Object {
+            Copy-Item -Path $_.FullName -Destination $dest -Recurse -Force
+        }
     }
 }
 

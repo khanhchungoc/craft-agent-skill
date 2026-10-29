@@ -26,7 +26,7 @@ try:
 except ImportError:
     yaml = None
 
-RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", "claude-code", "codex", "kiro", "gemini")
+RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", "claude-code", "codex", "kiro", "gemini", "antigravity")
 AGENT_ROOTS = {".github": "copilot", ".claude": "claude-code",
                ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini"}
 SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
@@ -34,13 +34,21 @@ SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
 
 def runtime_for(path: Path, selected: str = "auto") -> str:
     if selected != "auto":
-        return "copilot" if selected in ("github-copilot", "vscode-copilot") else selected
+        if selected in ("github-copilot", "vscode-copilot"):
+            return "copilot"
+        if selected == "antigravity":
+            return "gemini"
+        return selected
     parts = path.parts
     # Authoring assets live under assets/runtimes but target their named native profile.
     for index, part in enumerate(parts[:-1]):
         if part == "runtimes" and parts[index + 1] in RUNTIMES:
             target = parts[index + 1]
-            return "copilot" if target in ("github-copilot", "vscode-copilot") else target
+            if target in ("github-copilot", "vscode-copilot"):
+                return "copilot"
+            if target == "antigravity":
+                return "gemini"
+            return target
     for root, runtime in AGENT_ROOTS.items():
         if root in parts:
             return runtime

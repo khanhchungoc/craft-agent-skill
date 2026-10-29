@@ -89,8 +89,14 @@ for rt in "${RUNTIMES[@]}"; do
         ln -s "$REPO_ROOT" "$dest"
     else
         echo "    Copying ($rt) -> $dest"
-        cp -R "$REPO_ROOT" "$dest"
-        rm -rf "$dest/.git"
+        mkdir -p "$dest"
+        for item in "$REPO_ROOT"/*; do
+            base="$(basename "$item")"
+            case "$base" in
+                .git|node_modules|.github|agent|.agents|.claude|tests|skills-lock.json) continue ;;
+                *) cp -R "$item" "$dest/" ;;
+            esac
+        done
     fi
 done
 

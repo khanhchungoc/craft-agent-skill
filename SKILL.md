@@ -9,7 +9,7 @@ Produce useful agent customizations whose instructions, dependencies, and output
 
 ## Ownership & Resources
 
-Follow the repository [README.md](README.md) while editing this repository. Do not copy host-specific instructions into artifacts for another runtime. The skill owns the authoring workflow; supporting files have these distinct roles:
+Do not copy host-specific instructions into artifacts for another runtime. The skill owns the authoring workflow; supporting files have these distinct roles:
 
 | Resource | Owns | Read when |
 |---|---|---|

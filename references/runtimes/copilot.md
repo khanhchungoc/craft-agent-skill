@@ -5,7 +5,7 @@ Official documentation checked: 2026-10-27. Select the installed harness and ver
 ## Native Layout and Semantics
 
 - Project agent: `.github/agents/<name>.agent.md`. Personal Copilot agent: `~/.copilot/agents/<name>.agent.md`. Use YAML frontmatter plus a Markdown body.
-- Project skill: prefer `.github/skills/<name>/SKILL.md` for this repository. Current VS Code also discovers `.claude/skills/` and `.agents/skills/`; personal locations differ by harness.
+- Project skill: prefer `.github/skills/<name>/SKILL.md` for this repository. Current VS Code also discovers `.claude/skills/` and `.agents/skills/`; personal skills reside in `~/.copilot/skills/<name>/SKILL.md`.
 - Header fields, tools, model selection, hooks, and delegation vary between Local and Copilot. A model vendor is not the harness selector, and `target` is not that selector either.
 - VS Code-format agents use body links to procedural skills; do not transfer Claude's agent `skills` preload field into this format. Scope tools to the selected harness's available names. Local UI handoffs are not portable to Copilot.
 

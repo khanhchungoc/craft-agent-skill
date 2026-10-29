@@ -31,11 +31,11 @@ Each profile owns the exact file formats and native filesystem destinations for 
 
 | Profile ID | Consumer | Project Agent Path & Format | Project Skill Root | Personal / User Scope | Native Profile Details |
 |---|---|---|---|---|---|
-| `copilot` | GitHub Copilot (VS Code / Local) | `.github/agents/<name>.agent.md` (Markdown + YAML) | `.github/skills/<name>/` | `~/.copilot/agents/<name>.agent.md` | [Copilot profile](runtimes/copilot.md) |
+| `copilot` | GitHub Copilot (VS Code / Local) | `.github/agents/<name>.agent.md` (Markdown + YAML) | `.github/skills/<name>/` | `~/.copilot/agents/<name>.agent.md`, `~/.copilot/skills/<name>/` | [Copilot profile](runtimes/copilot.md) |
 | `claude-code` | Claude Code CLI & Desktop | `.claude/agents/<name>.md` (Markdown + YAML) | `.claude/skills/<name>/` | `~/.claude/agents/`, `~/.claude/skills/` | [Claude Code profile](runtimes/claude-code.md) |
 | `codex` | OpenAI Codex | `.codex/agents/<name>.toml` (TOML format) | `.agents/skills/<name>/` | `~/.codex/agents/`, `~/.agents/skills/` | [Codex profile](runtimes/codex.md) |
-| `gemini` | Google Gemini & Antigravity | Subagent definitions / Custom | `skills/<name>/` | `~/.gemini/antigravity/skills/<name>/` | [Gemini profile](runtimes/gemini.md) |
-| `kiro` | Kiro IDE / CLI | `.kiro/agents/<name>.json` (or `.md`) | `.kiro/skills/<name>/` | Surface-dependent | [Kiro profile](runtimes/kiro.md) |
+| `gemini` | Google Gemini & Antigravity | Subagent definitions / Custom | `.gemini/skills/<name>/`, `.agents/skills/<name>/` | `~/.gemini/config/skills/<name>/`, `~/.gemini/skills/<name>/` | [Gemini profile](runtimes/gemini.md) |
+| `kiro` | Kiro IDE / CLI | `.kiro/agents/<name>.md` (or `.json`) | `.kiro/skills/<name>/` | `~/.kiro/skills/<name>/` | [Kiro profile](runtimes/kiro.md) |
 
 For another runtime, inspect its current official customization documentation and add a profile/templates before claiming support. Do not reinterpret another profile's metadata as equivalent. For a legacy version, verify that version's contract; current templates are not evidence of backward compatibility.
 

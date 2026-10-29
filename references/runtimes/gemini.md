@@ -4,11 +4,12 @@ Official documentation checked: 2026-10-28. This profile covers Google Gemini CL
 
 ## Native Layout and Semantics
 
-- Project skills: `skills/<name>/SKILL.md` or `.agents/skills/<name>/SKILL.md`.
-- Personal / User skills: `~/.gemini/antigravity/skills/<name>/SKILL.md`.
-- Skills use standard Markdown with YAML frontmatter (`name`, `description`).
-- Custom agents & subagents: Defined via plugin bundles or conversation subagent configurations.
-- Native tools: File operations, shell execution, subagent dispatch, MCP tools.
+- **Project skills**: `.gemini/skills/<name>/SKILL.md` (Gemini CLI), `.agents/skills/<name>/SKILL.md` (Antigravity/universal), or top-level `skills/<name>/SKILL.md`.
+- **Personal / User skills**: `~/.gemini/config/skills/<name>/SKILL.md` (Antigravity global skills), `~/.gemini/skills/<name>/SKILL.md` (Gemini CLI), or `~/.gemini/antigravity/skills/<name>/SKILL.md`.
+- **Skills**: Use standard Markdown with YAML frontmatter (`name`, `description`).
+- **Project instructions**: Belong in `GEMINI.md` (or workspace rules/instructions).
+- **Custom agents & subagents**: Defined via `.gemini/agents/<name>.md`, plugin bundles, or conversation subagent configurations (`define_subagent` / `invoke_subagent`).
+- **Native tools**: File operations, shell execution, subagent dispatch, MCP tools.
 
 ## Templates
 
@@ -18,5 +19,10 @@ Official documentation checked: 2026-10-28. This profile covers Google Gemini CL
 
 Ensure frontmatter contains `name` and a concise `description` for routing. Verify tool execution permissions and paths relative to the active workspace.
 
-Validate files with `--runtime gemini` or `--runtime universal`.
+Validate files with `--runtime gemini`, `--runtime antigravity`, or `--runtime universal`.
+
+## Sources
+
+- [Antigravity Customizations & Skills](https://cloud.google.com)
+- [Gemini CLI Documentation](https://ai.google.dev)
 

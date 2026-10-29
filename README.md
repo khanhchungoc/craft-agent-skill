@@ -8,21 +8,24 @@ Works seamlessly with **GitHub Copilot**, **Claude Code**, **OpenAI Codex**, **C
 
 ## ⚡ Quick Install
 
-Run this in your terminal:
+Run this in your terminal to install across all your AI assistants:
 
 ```bash
-# Install globally across all your AI assistants:
 npx khanhchungoc/craft-agent-skill
-
-# Or install for your current project workspace only:
-npx khanhchungoc/craft-agent-skill -p
 ```
 
-> **Target a specific tool:**
-> * **Antigravity:** `npx khanhchungoc/craft-agent-skill -a antigravity`
-> * **Claude Code:** `npx khanhchungoc/craft-agent-skill -a claude-code`
-> * **Copilot:** `npx khanhchungoc/craft-agent-skill -a copilot`
-> * **Codex / Cursor:** `npx khanhchungoc/craft-agent-skill -a codex`
+### Options:
+
+* **Current project workspace only:**
+  ```bash
+  npx khanhchungoc/craft-agent-skill -p
+  ```
+* **Target a specific assistant:**
+  ```bash
+  npx khanhchungoc/craft-agent-skill -a antigravity
+  npx khanhchungoc/craft-agent-skill -a claude-code
+  npx khanhchungoc/craft-agent-skill -a copilot
+  ```
 
 ---
 
