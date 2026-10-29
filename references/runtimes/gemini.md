@@ -1,28 +1,19 @@
 # Google Gemini & Antigravity
 
-Official documentation checked: 2026-10-28. This profile covers Google Gemini CLI and the Antigravity Agent runtime.
+Official documentation checked: 2026-10-28. Covers Google Gemini CLI and the Antigravity IDE/Agent runtime.
 
-## Native Layout and Semantics
+## Native Layout & Semantics
 
-- **Project skills**: `.gemini/skills/<name>/SKILL.md` (Gemini CLI), `.agents/skills/<name>/SKILL.md` (Antigravity/universal), or top-level `skills/<name>/SKILL.md`.
-- **Personal / User skills**: `~/.gemini/config/skills/<name>/SKILL.md` (Antigravity global skills), `~/.gemini/skills/<name>/SKILL.md` (Gemini CLI), or `~/.gemini/antigravity/skills/<name>/SKILL.md`.
-- **Skills**: Use standard Markdown with YAML frontmatter (`name`, `description`).
-- **Project instructions**: Belong in `GEMINI.md` (or workspace rules/instructions).
-- **Custom agents & subagents**: Defined via `.gemini/agents/<name>.md`, plugin bundles, or conversation subagent configurations (`define_subagent` / `invoke_subagent`).
-- **Native tools**: File operations, shell execution, subagent dispatch, MCP tools.
+- **Project skill:** `.gemini/skills/<name>/SKILL.md` (Gemini CLI), `.agents/skills/<name>/SKILL.md` (Antigravity/universal), or `skills/<name>/SKILL.md`.
+- **Personal skill:** `~/.gemini/config/skills/<name>/SKILL.md` (Antigravity), `~/.gemini/skills/<name>/SKILL.md` (Gemini CLI), or `~/.gemini/antigravity/skills/<name>/SKILL.md`.
+- **Project instructions & agents:** Repo-wide instructions live in `GEMINI.md` or workspace rules. Custom agents/subagents use `.gemini/agents/<name>.md`, plugin bundles, or conversation subagent tools (`define_subagent` / `invoke_subagent`).
 
-## Templates
+## Templates & Validation
 
-- [Universal skill template](../../assets/skill.template.md)
-
-## Runtime Review
-
-Ensure frontmatter contains `name` and a concise `description` for routing. Verify tool execution permissions and paths relative to the active workspace.
-
-Validate files with `--runtime gemini`, `--runtime antigravity`, or `--runtime universal`.
+- **Skill template:** [skill.template.md](../../assets/skill.template.md)
+- **Lint:** `python scripts/validate_agent_skill.py --runtime gemini --path <target>` (or `--runtime antigravity`).
 
 ## Sources
 
-- [Antigravity Customizations & Skills](https://cloud.google.com)
+- [Antigravity Documentation](https://cloud.google.com)
 - [Gemini CLI Documentation](https://ai.google.dev)
-
