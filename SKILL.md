@@ -32,6 +32,7 @@ Do not copy host-specific instructions into artifacts for another runtime. The s
 ## Mode 1: Creation
 
 - Define the intended request, activation boundary, inputs, output, and success criteria from the available evidence.
+- After elicitation, conduct ecosystem & domain research ([elicitation guide](references/elicitation-guide.md#post-elicitation-ecosystem--domain-research)) to check for existing skills and domain standards before authoring.
 - Compose the common body scaffold with the selected native wrapper from [assets/runtimes/](assets/runtimes/). Replace placeholders and remove unused sections and authoring notes.
 - For agents, define responsibility and tool access; link procedural skills with dispatch conditions. Restrict tools to the workflow's needs.
 - For skills, put selection criteria in the frontmatter description. Keep each Markdown file within single-read tool limits (`< 14 KB`) and guard against lost-in-the-middle attention drop-off: load only step-relevant `references/` or `assets/`, and keep critical invariants and verification near the top or bottom of the active instruction rather than buried behind long worked examples or inactive routes.
@@ -46,6 +47,6 @@ Do not copy host-specific instructions into artifacts for another runtime. The s
 
 ## Mode 3: Review
 
-- Read the requested assets and their relevant resources. Assess them using the [review rubric](references/review-rubric.md).
+- Read the requested assets and their relevant resources. Assess them using the [review rubric](references/review-rubric.md) (including domain standards benchmarking).
 - Distinguish reproducible defects, evidence-based risks, and optional improvements. A stylistic preference is not a platform requirement.
 - Return a proportionate findings report. Apply repairs only when the user's request includes them; a comparison or audit alone does not authorize edits.

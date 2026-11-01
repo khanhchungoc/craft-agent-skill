@@ -37,6 +37,12 @@ For creation or a material workflow change, resolve applicable areas from worksp
 - **Agents:** Responsibility boundary (coordination vs. procedural skills), working guardrails, mounted skills with dispatch conditions, required tool/MCP permissions, and handoff payload (only when handoffs are used).
 - **Skills:** Task-specific procedure beyond baseline model capability, and progressive disclosure (what belongs in `references/`, `assets/`, or `scripts/` with explicit read/use conditions in `SKILL.md`).
 
+## Post-Elicitation Ecosystem & Domain Research
+
+Once the goal and scope are established, conduct targeted web research before authoring:
+- **Readily available skills:** Search for existing skills, official agent toolkits, or open-source patterns that already solve or overlap with the user's goal; suggest them to prevent duplicate effort or integrate proven tools.
+- **Domain standards & best practices:** Research recognized industry standards, specifications, established design principles, and common failure modes in the target domain to improve instructions, edge-case coverage, and quality criteria.
+
 ## Focused Delta Check (Updates & Reviews)
 
 For updates or reviews, do not run a full creation interview. Clarify only unresolved blockers across:

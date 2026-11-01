@@ -64,7 +64,7 @@ Mark an unexercised capability as *unverified* and an irrelevant dimension as *n
 - Verify declared tools, capabilities, and permissions against the environment rather than assuming a tool name guarantees availability.
 - Ground executable commands, paths, dependencies, and argument names in the actual helper or native `--help` (handling spaces, missing inputs, and error statuses).
 - Make shell assumptions and environment limits explicit; a fallback is useful only when it exists and meets the contract.
-- Keep domain guidance supported by an authoritative source, without importing unrelated methodologies, standards, or provider-specific behaviors.
+- **Domain standards & best practices:** Benchmark domain guidance against recognized industry standards, specifications, established principles, and common failure modes (via targeted web research on domain-specific tasks) rather than unverified assumptions or unrelated methodologies.
 
 ### 6. Output Contracts, Verification, and Hallucination Resilience
 - **AI consumer:** Provide the context, identifiers, permissions, and structure the receiving task needs.
@@ -81,11 +81,11 @@ Mark an unexercised capability as *unverified* and an irrelevant dimension as *n
 
 ### 8. Script Performance and Output Bounds
 Apply when scripts process substantial data, repeatedly access files/services, or scale output with repository size:
-- **Work avoided & early filtering:** Reuse retrieved data, batch compatible operations, and apply file scope/filters/limits early to avoid unnecessary scans, parsing, or subprocess startup. A limit must not produce incorrect totals or pass off partial validation as complete.
-- **Bounded resources & retries:** Process large inputs safely, bound concurrency, and bound external calls/retries with observable failure behavior rather than silent background work. Ensure cache keys and invalidation prevent stale cross-context results.
-- **Default output & explicit bounds:** Prefer a summary and selected detail for exploratory review while preserving full payloads when a downstream parser requires them. Document record/line/byte bounds and continuation/paging in `--help` when output can exceed one response.
-- **Truncation transparency & channel separation:** Report partial coverage, returned count, and continuation instructions—never present a preview as the full result. Keep progress/diagnostic chatter on `stderr` separate from machine-parsed `stdout`, and preserve actionable errors and exit codes in terse modes.
-- **Measurement & verification:** Test changed behavior, invalid bounds, and large/empty result sets. Compare the same input and output contract for efficiency claims; label unmeasured benefits as expectations and bottlenecks as evidence.
+- **Work avoided & filtering:** Reuse retrieved data, batch compatible operations, and apply scope/limits early to avoid unnecessary scans, parsing, or subprocess startup. A limit must not produce false totals or pass off partial validation as complete.
+- **Bounded resources & retries:** Process large inputs safely, bound concurrency, and bound external calls/retries with observable failure behavior rather than silent work. Ensure cache keys prevent stale cross-context results.
+- **Default output & bounds:** Prefer a summary and selected detail for review while preserving full payloads for downstream parsers. Document record/line/byte bounds and paging in `--help` when output can exceed one response.
+- **Truncation transparency:** Report partial coverage, returned count, and continuation instructions—never present a preview as the full result. Keep diagnostic chatter on `stderr` separate from machine-parsed `stdout`, preserving actionable exit codes.
+- **Measurement:** Test changed behavior, invalid bounds, and large/empty result sets. Compare the same input/output contract for efficiency claims; label unmeasured benefits as expectations and bottlenecks as evidence.
 
 ## Behavioral Evidence
 

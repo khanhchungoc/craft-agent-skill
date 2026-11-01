@@ -31,18 +31,43 @@ npx khanhchungoc/craft-agent-skill
 
 ## 💬 How to Use
 
-Once installed, your AI assistant automatically gains this skill. You don't need to memorize any special commands—just talk to your AI agent in chat:
+Once installed, your AI assistant automatically gains this skill. You don't need to micromanage instructions, folder layouts, or technical schemas—just express your goal naturally in chat. The skill works out the architecture, elicits missing details, and enforces platform best practices across three core modes:
 
-* **Create a new skill:**
-  > *"Create a new skill named `format-json` that cleans up and formats JSON files."*
-* **Create a custom agent:**
-  > *"Build a custom GitHub Copilot agent for code reviews with strict security guidelines."*
-* **Review & improve existing skills or agents:**
-  > *"Audit our `.claude/skills/` folder and tell me if any instructions or links are broken."*
-* **Convert between platforms:**
-  > *"Convert this GitHub Copilot agent into a Claude Code subagent."*
+### 🚀 Mode 1: Creation (Build from Scratch)
+Provide high-level intent; the skill elicits requirements, conducts web research for existing skills and industry standards, designs tool boundaries, and scaffolds production-ready agents and skills.
 
-The skill handles all platform-specific folder structures, templates, and file conventions automatically.
+* **Build a custom agent:**
+  > *"Create a security review agent for Copilot."*
+* **Build a reusable skill:**
+  > *"Create a skill for formatting API specs."*
+* **Design multi-agent workflows:**
+  > *"Set up a delivery workflow in Claude Code with planning and implementation agents."*
+
+---
+
+### 🔄 Mode 2: Update, Distillation & Migration
+Evolve instructions safely; the skill audits past runs, preserves behavior boundaries, and ports across platforms without scope drift.
+
+* **Learn from chat failures (Session Distillation):**
+  > *"The agent struggled in our last run—distill the lessons into our skill."*
+* **Cross-platform migration:**
+  > *"Convert this Copilot agent to Claude Code."*
+  > *"Port our skills to work with Codex and Kiro."*
+* **Placement & refactoring:**
+  > *"Organize our repo rules between agents, skills, and steering."*
+  > *"Clean up this skill so it's modular and under single-read limits."*
+
+---
+
+### 🔍 Mode 3: Review & Audit
+Ask for an evaluation; the skill benchmarks against domain standards and best practices, runs rubric grading, and checks for contradictions and structural errors automatically.
+
+* **Quality & rubric review:**
+  > *"Review our release skill."*
+* **Syntax & structural validation:**
+  > *"Check our customization files for any errors or broken links."*
+* **Contradiction & redundancy check:**
+  > *"Check if our agents and skills contradict each other."*
 
 ---
 
