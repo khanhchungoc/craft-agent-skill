@@ -123,6 +123,13 @@ class ValidatorTests(unittest.TestCase):
         self.assertEqual(status, 0)
         self.assertEqual((result["errors"], result["warnings"]), (0, 1))
 
+    def test_markdown_file_size_is_warning_not_failure(self):
+        self.write(body="# Sample\n" + ("Detailed line of instruction.\n" * 600))
+        status, result = self.cli("--path", "sample/SKILL.md")
+        self.assertEqual(status, 0)
+        self.assertEqual((result["errors"], result["warnings"]), (0, 1))
+        self.assertEqual(result["findings"][0]["rule"], "file-size")
+
     def test_rejects_invalid_utf8_and_replacement_character(self):
         path = self.write()
         path.write_bytes(b"\xff\xfe")

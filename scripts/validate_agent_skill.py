@@ -30,6 +30,7 @@ RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", 
 AGENT_ROOTS = {".github": "copilot", ".claude": "claude",
                ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini"}
 SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
+MAX_MARKDOWN_BYTES = 14 * 1024
 
 
 def runtime_for(path: Path, selected: str = "auto") -> str:
@@ -249,6 +250,13 @@ def structured_findings(path: Path, content: str, runtime: str, kind: str,
 
 def markdown_findings(path: Path, content: str) -> list[dict]:
     issues = []
+    size_bytes = len(content.encode("utf-8"))
+    if size_bytes > MAX_MARKDOWN_BYTES:
+        issues.append(finding(
+            path, 1, "file-size",
+            f"Markdown file is {size_bytes / 1024:.1f} KB (exceeds the 14 KB single-read guideline); consider splitting mutually exclusive routes, worked examples, or schemas into references/.",
+            "warning",
+        ))
     fence = None
     for number, line in enumerate(content.splitlines(), 1):
         marker = re.match(r"^\s{0,3}(`{3,}|~{3,})(.*)$", line)

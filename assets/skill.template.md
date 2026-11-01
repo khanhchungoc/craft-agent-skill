@@ -23,4 +23,4 @@ description: "<Capability and distinguishing activation context>."
 
 ## Deliverable
 
-<State the output location and format required by its consumer.>
+<State the output location, format, and final verification checks. Link large templates or worked examples from references/ or assets/ to avoid lost-in-the-middle dilution.>

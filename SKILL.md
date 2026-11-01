@@ -34,13 +34,13 @@ Do not copy host-specific instructions into artifacts for another runtime. The s
 - Define the intended request, activation boundary, inputs, output, and success criteria from the available evidence.
 - Compose the common body scaffold with the selected native wrapper from [assets/runtimes/](assets/runtimes/). Replace placeholders and remove unused sections and authoring notes.
 - For agents, define responsibility and tool access; link procedural skills with dispatch conditions. Restrict tools to the workflow's needs.
-- For skills, put selection criteria in the frontmatter description. Keep the body focused on execution. Create references, scripts, or assets only when they serve a concrete use.
+- For skills, put selection criteria in the frontmatter description. Keep each Markdown file within single-read tool limits (`< 14 KB`) and guard against lost-in-the-middle attention drop-off: load only step-relevant `references/` or `assets/`, and keep critical invariants and verification near the top or bottom of the active instruction rather than buried behind long worked examples or inactive routes.
 - Include a useful happy path, required preconditions, verification, and only the failure branches the task needs.
 
 ## Mode 2: Update / Distillation
 
 - Preserve the asset's name, location, supported metadata, existing authorization boundaries, and unrelated behavior unless the request changes them.
-- Apply focused edits for explicit requirements. Use [session distillation](references/session-distillation.md) when feedback needs interpretation.
+- Apply focused edits for explicit requirements; remove superseded rules and inline changelogs instead of leaving historical tombstones. Use [session distillation](references/session-distillation.md) when feedback needs interpretation.
 - Check dependent links and callers when changing paths, commands, or output contracts. Update affected callers without duplicating the definition.
 - If processing a replacement or improvement audit, preserve retained instructions, target paths, and approved decisions. Prepare concrete diffs for unapproved changes.
 
