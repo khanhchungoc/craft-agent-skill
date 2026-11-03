@@ -9,6 +9,7 @@ Improve future execution from session evidence—failures, corrections, avoidabl
    - Distinguish a missing rule from an ignored, undiscoverable, or contradictory existing rule before adding text.
    - Fix broken helpers, schemas, or CLI docs when the root cause is in tooling rather than the prompt.
    - Label unconfirmed explanations as hypotheses and identify a check to test them; do not encode a hypothesis or one-off recovery step as a permanent rule.
+   - Distill remedies into high-density invariants: state the minimal, self-contained rule (`Directive: concise rationale`) rather than embedding narrative post-mortems or conversational history.
 3. **Scope applicability:** Classify whether feedback is a personal preference, repository convention, contract-specific rule, or reusable pattern. Remove transient session noise while preserving exact limits, exceptions, required identifiers, and authorization boundaries.
 4. **Route to the canonical owner:** Update the existing owner and affected callers rather than duplicating rules across files. Make the smallest change that addresses the cause.
 5. **Verify:** Check the change against the original failure case and a nearby case that must remain unaffected. State observation, cause/confidence, owner changed, and verification performed (distinguishing lint, script checks, and live agent runs).
@@ -46,3 +47,4 @@ Improve future execution from session evidence—failures, corrections, avoidabl
 | A named test dependency was stopped | Verify dependencies declared by the selected test suite before running | Starting every local service or inventing a container name |
 | Two components drifted after copying the same standard | Keep the standard in its canonical owner and link callers | Adding another paraphrase to each component |
 | User supplies an exact identifier required by an output contract | Preserve it in the relevant contract or fixture | Removing required identifiers because they look session-specific |
+| Agent made a false assumption from missing error docs | `Silence != Permission: Absence of a documented error or restriction is never proof an operation is allowed.` | Writing multi-paragraph explanations of backend engines, quoting specs, and recounting session failure history |
