@@ -10,24 +10,18 @@ const __dirname = path.dirname(__filename);
 const REPO_ROOT = path.resolve(__dirname, '..');
 const USER_HOME = os.homedir();
 
-// ANSI color formatting
+// High-contrast ANSI colors
 const c = {
   reset: '\x1b[0m',
   bold: '\x1b[1m',
   dim: '\x1b[2m',
-  cyan: '\x1b[36m',
-  brightCyan: '\x1b[96m',
-  blue: '\x1b[34m',
-  magenta: '\x1b[35m',
-  brightMagenta: '\x1b[95m',
-  green: '\x1b[32m',
-  brightGreen: '\x1b[92m',
-  yellow: '\x1b[33m',
-  brightYellow: '\x1b[93m',
-  red: '\x1b[31m',
-  brightRed: '\x1b[91m',
-  gray: '\x1b[90m',
-  white: '\x1b[37m'
+  cyan: '\x1b[96m',          // bright cyan (high visibility)
+  green: '\x1b[92m',         // bright green
+  yellow: '\x1b[93m',        // bright yellow
+  red: '\x1b[91m',           // bright red
+  gray: '\x1b[90m',          // muted gray
+  white: '\x1b[97m',         // bright white
+  border: '\x1b[38;5;39m'    // vivid sky blue
 };
 
 const args = process.argv.slice(2);
@@ -74,7 +68,7 @@ for (let i = 0; i < args.length; i++) {
 
 function printHelp() {
   console.log(`
-${c.brightCyan}${c.bold}Agent Skill Builder Installer${c.reset}
+${c.cyan}${c.bold}Skill Craft Installer${c.reset}
 ${c.dim}Universal AI skill that teaches AI coding assistants to build, refine, and audit custom agents and skills.${c.reset}
 
 ${c.bold}Usage:${c.reset}
@@ -88,12 +82,12 @@ ${c.bold}Options:${c.reset}
   -h, --help                Show this help message
 
 ${c.bold}Supported Runtimes:${c.reset}
-  • ${c.brightCyan}antigravity${c.reset}  Antigravity IDE (with slash command support)
-  • ${c.brightCyan}copilot${c.reset}      GitHub Copilot / VS Code
-  • ${c.brightCyan}claude${c.reset}       Claude Code CLI
-  • ${c.brightCyan}codex${c.reset}        OpenAI Codex
-  • ${c.brightCyan}gemini${c.reset}       Gemini CLI
-  • ${c.brightCyan}kiro${c.reset}         Kiro CLI & IDE
+  • ${c.cyan}antigravity${c.reset}  Antigravity IDE (with slash command support)
+  • ${c.cyan}copilot${c.reset}      GitHub Copilot / VS Code
+  • ${c.cyan}claude${c.reset}       Claude Code CLI
+  • ${c.cyan}codex${c.reset}        OpenAI Codex
+  • ${c.cyan}gemini${c.reset}       Gemini CLI
+  • ${c.cyan}kiro${c.reset}         Kiro CLI & IDE
 `);
 }
 
@@ -137,47 +131,32 @@ const runtimesToInstall = normalizedRuntime === 'all' ? allRuntimes : [normalize
 
 for (const rt of runtimesToInstall) {
   if (!allRuntimes.includes(rt)) {
-    console.error(`\n${c.brightRed}✖ Error: Unknown runtime "${rt}". Available: ${allRuntimes.join(', ')}${c.reset}\n`);
+    console.error(`\n${c.red}✖ Error: Unknown runtime "${rt}". Available: ${allRuntimes.join(', ')}${c.reset}\n`);
     process.exit(1);
   }
 }
 
-// Visual ASCII Banner for "Agent Skill Builder"
+// Ultra High-Contrast Solid 3D Block Banner for "SKILL CRAFT"
 const asciiArt = [
-  '    ___                    __     _____ __   _ ____   ',
-  '   /   | ____ ____  ____  / /_   / ___// /__(_) / /   ',
-  '  / /| |/ __ `/ _ \\/ __ \\/ __/   \\__ \\/ //_/ / / /    ',
-  ' / ___ / /_/ /  __/ / / / /_    ___/ / ,< / / / /     ',
-  '/_/  |_\\__, /\\___/_/ /_/\\__/   /____/_/|_/_/_/_/      ',
-  '      /____/                                          ',
-  '       ____        _ __    __                         ',
-  '      / __ )__  __(_) /___/ /__  _____                ',
-  '     / __  / / / / / / __  / _ \\/ ___/                ',
-  '    / /_/ / /_/ / / / /_/ /  __/ /                    ',
-  '   /_____/\\__,_/_/_/\\__,_/\\___/_/                     '
+  '███████╗██╗  ██╗██╗██╗     ██╗      ██████╗██████╗  █████╗ ███████╗████████╗',
+  '██╔════╝██║ ██╔╝██║██║     ██║     ██╔════╝██╔══██╗██╔══██╗██╔════╝╚══██╔══╝',
+  '███████╗█████╔╝ ██║██║     ██║     ██║     ██████╔╝███████║█████╗     ██║   ',
+  '╚════██║██╔═██╗ ██║██║     ██║     ██║     ██╔══██╗██╔══██║██╔══╝     ██║   ',
+  '███████║██║  ██╗██║███████╗███████╗╚██████╗██║  ██║██║  ██║██║        ██║   ',
+  '╚══════╝╚═╝  ╚═╝╚═╝╚══════╝╚══════╝ ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝        ╚═╝   '
 ];
 
 console.log('');
-const startRgb = [0, 230, 255]; // bright cyan
-const endRgb = [170, 95, 255];  // vibrant violet
-
-asciiArt.forEach((line, index) => {
-  const t = index / (asciiArt.length - 1);
-  const r = Math.round(startRgb[0] + (endRgb[0] - startRgb[0]) * t);
-  const g = Math.round(startRgb[1] + (endRgb[1] - startRgb[1]) * t);
-  const b = Math.round(startRgb[2] + (endRgb[2] - startRgb[2]) * t);
-  console.log(`\x1b[38;2;${r};${g};${b}m${c.bold}${line}${c.reset}`);
-});
-
+console.log(`${c.cyan}${c.bold}${asciiArt.join('\n')}${c.reset}`);
 console.log(`${c.dim}   Universal AI Skill Builder for Coding Assistants • v1.0.0${c.reset}\n`);
 
 // Configuration Section
-console.log(`${c.brightCyan} ⚙  CONFIGURATION${c.reset}`);
+console.log(`${c.cyan} ⚙  CONFIGURATION${c.reset}`);
 console.log(`    ${c.gray}•${c.reset} Scope:    ${c.white}${scope === 'user' ? 'Global' : 'Project'}${c.reset} ${c.dim}(${scope === 'user' ? 'User Home' : targetPath})${c.reset}`);
 console.log(`    ${c.gray}•${c.reset} Mode:     ${c.white}${mode === 'symlink' ? 'Symlink' : 'Copy'}${c.reset} ${c.dim}(${mode === 'symlink' ? 'auto-updating junction' : 'standalone copy'})${c.reset}`);
 console.log(`    ${c.gray}•${c.reset} Target:   ${c.white}${normalizedRuntime === 'all' ? 'All Runtimes' : (runtimeLabels[normalizedRuntime] || normalizedRuntime)}${c.reset} ${c.dim}(${runtimesToInstall.length} runtime${runtimesToInstall.length > 1 ? 's' : ''})${c.reset}\n`);
 
-console.log(`${c.brightCyan} ✦  INSTALLING RUNTIMES${c.reset}`);
+console.log(`${c.cyan} ✦  INSTALLING RUNTIMES${c.reset}`);
 
 const canonicalRepo = path.resolve(REPO_ROOT).toLowerCase();
 
@@ -247,14 +226,14 @@ for (const rt of runtimesToInstall) {
     const symlinkType = process.platform === 'win32' ? 'junction' : 'dir';
     try {
       fs.symlinkSync(REPO_ROOT, dest, symlinkType);
-      console.log(`    ${c.brightGreen}✔${c.reset}  ${c.white}${label}${c.reset} ${c.gray}→${c.reset} ${c.dim}${displayDest}${c.reset}`);
+      console.log(`    ${c.green}✔${c.reset}  ${c.white}${label}${c.reset} ${c.gray}→${c.reset} ${c.dim}${displayDest}${c.reset}`);
     } catch (err) {
       copySkillDirectory(REPO_ROOT, dest);
-      console.log(`    ${c.brightGreen}✔${c.reset}  ${c.white}${label}${c.reset} ${c.gray}→${c.reset} ${c.dim}${displayDest}${c.reset} ${c.yellow}(copy fallback)${c.reset}`);
+      console.log(`    ${c.green}✔${c.reset}  ${c.white}${label}${c.reset} ${c.gray}→${c.reset} ${c.dim}${displayDest}${c.reset} ${c.yellow}(copy fallback)${c.reset}`);
     }
   } else {
     copySkillDirectory(REPO_ROOT, dest);
-    console.log(`    ${c.brightGreen}✔${c.reset}  ${c.white}${label}${c.reset} ${c.gray}→${c.reset} ${c.dim}${displayDest}${c.reset}`);
+    console.log(`    ${c.green}✔${c.reset}  ${c.white}${label}${c.reset} ${c.gray}→${c.reset} ${c.dim}${displayDest}${c.reset}`);
   }
 }
 
@@ -273,7 +252,7 @@ function visualLength(str) {
   return width;
 }
 
-const boxWidth = 66;
+const boxWidth = 72;
 function boxLine(content) {
   const vLen = visualLength(content);
   const pad = Math.max(0, boxWidth - 4 - vLen);
@@ -285,11 +264,11 @@ const bottomBorder = `╰${'─'.repeat(boxWidth - 2)}╯`;
 const emptyLine    = `│${' '.repeat(boxWidth - 2)}│`;
 
 console.log('');
-console.log(`${c.cyan}${topBorder}${c.reset}`);
-console.log(`${c.cyan}${boxLine(`${c.brightGreen}✨ Installation Successful!${c.reset}`)}${c.reset}`);
-console.log(`${c.cyan}${emptyLine}${c.reset}`);
-console.log(`${c.cyan}${boxLine(`${c.bold}${c.white}How to use:${c.reset}`)}${c.reset}`);
-console.log(`${c.cyan}${boxLine(`  Type ${c.brightCyan}/craft-agent-skill${c.reset}${c.white} in your AI assistant chat${c.reset}`)}${c.reset}`);
-console.log(`${c.cyan}${emptyLine}${c.reset}`);
-console.log(`${c.cyan}${boxLine(`${c.dim}Repository: https://github.com/khanhchungoc/craft-agent-skill${c.reset}`)}${c.reset}`);
-console.log(`${c.cyan}${bottomBorder}${c.reset}\n`);
+console.log(`${c.border}${topBorder}${c.reset}`);
+console.log(`${c.border}${boxLine(`${c.green}✨ Installation Successful!${c.reset}`)}${c.reset}`);
+console.log(`${c.border}${emptyLine}${c.reset}`);
+console.log(`${c.border}${boxLine(`${c.bold}${c.white}How to use:${c.reset}`)}${c.reset}`);
+console.log(`${c.border}${boxLine(`  Type ${c.cyan}/craft-agent-skill${c.reset}${c.white} in your AI assistant chat${c.reset}`)}${c.reset}`);
+console.log(`${c.border}${emptyLine}${c.reset}`);
+console.log(`${c.border}${boxLine(`${c.dim}Repository: https://github.com/khanhchungoc/craft-agent-skill${c.reset}`)}${c.reset}`);
+console.log(`${c.border}${bottomBorder}${c.reset}\n`);
