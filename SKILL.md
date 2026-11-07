@@ -38,7 +38,7 @@ Do not copy host-specific instructions into artifacts for another runtime. The s
 - Define the intended request, activation boundary, inputs, output, and success criteria from the available evidence.
 - After elicitation, conduct ecosystem & domain research ([elicitation guide](references/elicitation-guide.md#post-elicitation-ecosystem--domain-research)) to check for existing skills and domain standards before authoring.
 - Compose the common body scaffold with the selected native wrapper from [assets/runtimes/](assets/runtimes/). Replace placeholders and remove unused sections and authoring notes.
-- For agents, define responsibility and tool access; link procedural skills with dispatch conditions.
+- For agents, define responsibility and tool access; link procedural skills with dispatch conditions. Restrict tools to the workflow's needs for runtimes supporting frontmatter tools.
 - For skills, put selection criteria in the frontmatter description. Practice **in-file density first**: keep self-contained criteria, decision tables, and rules directly in `SKILL.md`, splitting into `references/` or `assets/` only when the primary file approaches single-read tool limits (`> 14 KB`) or contains mutually exclusive routes. Guard against lost-in-the-middle attention drop-off: load only step-relevant `references/` or `assets/`, and keep critical invariants and verification near the top or bottom of the active instruction rather than buried behind long worked examples or inactive routes.
 - Include a useful happy path, required preconditions, verification, and only the failure branches the task needs.
 

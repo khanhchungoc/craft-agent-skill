@@ -28,7 +28,8 @@ except ImportError:
 
 RUNTIMES = ("auto", "universal", "copilot", "github-copilot", "vscode-copilot", "claude", "claude-code", "codex", "kiro", "gemini", "antigravity")
 AGENT_ROOTS = {".github": "copilot", ".claude": "claude",
-               ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini"}
+               ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini",
+               ".agents": "gemini"}
 SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
 MAX_MARKDOWN_BYTES = 14 * 1024
 
@@ -171,12 +172,12 @@ def metadata_findings(path: Path, data: dict, key_lines: dict, runtime: str,
         if runtime == "codex" and "tools" in data:
             issues.append(finding(path, key_lines.get("tools", 1), "runtime-field",
                                   "Codex custom agents inherit tools; do not use a Copilot/Claude tools field."))
-        elif runtime in ("gemini", "antigravity") and "tools" in data:
-            issues.append(finding(path, key_lines.get("tools", 1), "runtime-field",
-                                  "Gemini custom agents do not accept a 'tools' frontmatter field; tool capabilities are inherited or configured via the environment."))
-        elif not isinstance(tools, list) or any(not isinstance(tool, str) or not tool.strip() for tool in tools):
+        elif "tools" in data and (not isinstance(tools, list) or any(not isinstance(tool, str) or not tool.strip() for tool in tools)):
             issues.append(finding(path, key_lines.get("tools", 1), "frontmatter-tools",
                                   "Agent tools must be a list of non-empty strings."))
+        elif runtime in ("gemini", "antigravity") and "tools" in data and "call_mcp_tool" in tools:
+            issues.append(finding(path, key_lines.get("tools", 1), "forbidden-tool",
+                                  "Antigravity/Gemini custom agents must not declare 'call_mcp_tool'; MCP tools are handled via environment/MCP configuration and listing it causes a runtime error."))
         elif runtime in ("copilot", "github-copilot", "vscode-copilot") and "vscode" in tools:
             issues.append(finding(path, key_lines.get("tools", 1), "broad-tool-permission",
                                   "Use the required vscode tool names instead of the broad 'vscode' bundle."))

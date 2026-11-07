@@ -202,12 +202,14 @@ class ValidatorTests(unittest.TestCase):
         path.write_text(content.replace('developer_instructions = "Report concrete findings with evidence."', 'tools = ["Read"]'), encoding="utf-8")
         self.assertTrue({"agent-instructions", "runtime-field"}.issubset(self.rules(path)))
 
-    def test_gemini_agent_rejects_tools_frontmatter_field(self):
+    def test_gemini_agent_accepts_tools_but_rejects_call_mcp_tool(self):
         content = 'name: reviewer\ndescription: Review supplied changes.\n'
         path = self.write(".gemini/agents/reviewer.md", content)
         self.assertEqual(self.rules(path), set())
-        path_with_tools = self.write(".gemini/agents/reviewer.md", content + 'tools: ["read"]\n')
-        self.assertIn("runtime-field", self.rules(path_with_tools))
+        path_with_valid_tools = self.write(".gemini/agents/reviewer.md", content + 'tools: ["read_file", "run_command"]\n')
+        self.assertEqual(self.rules(path_with_valid_tools), set())
+        path_with_call_mcp = self.write(".gemini/agents/reviewer.md", content + 'tools: ["read_file", "call_mcp_tool"]\n')
+        self.assertIn("forbidden-tool", self.rules(path_with_call_mcp))
 
     def test_kiro_json_and_markdown_profiles_accept_native_resources(self):
         content = {"name": "reviewer", "description": "Review a supplied artifact.",
