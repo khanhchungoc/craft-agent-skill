@@ -63,6 +63,7 @@ Mark an unexercised capability as *unverified* and an irrelevant dimension as *n
 - Preserve existing locations for updates unless a move or rename is authorized, and check affected callers when paths change.
 - Verify declared tools, capabilities, and permissions against the environment rather than assuming a tool name guarantees availability.
 - Ground executable commands, paths, dependencies, and argument names in the actual helper or native `--help` (handling spaces, missing inputs, and error statuses).
+- **Platform-agnostic conventions:** Ensure helper scripts and commands do not assume a single OS or shell. Use forward slashes (`/`) or language-native path resolvers (e.g., Python `pathlib.Path`, Node `path.resolve`) instead of hardcoded backslashes or platform-specific environment variables. Avoid unportable shell builtins, and provide cross-platform alternatives (e.g. Python standard-library scripts or dual `.sh`/`.ps1` entrypoints) when local automation is bundled.
 - Make shell assumptions and environment limits explicit; a fallback is useful only when it exists and meets the contract.
 - **Domain standards & best practices:** Benchmark domain guidance against recognized industry standards, specifications, established principles, and common failure modes (via targeted web research on domain-specific tasks) rather than unverified assumptions or unrelated methodologies.
 
@@ -79,8 +80,9 @@ Mark an unexercised capability as *unverified* and an irrelevant dimension as *n
 - Transfer only necessary context to delegated tasks (inputs, decisions, permissions, outputs, completion signals, and failure reporting); avoid delegation where ordinary execution suffices.
 - Support new providers, versions, or task variants without breaking contracts or copying the workflow, keeping conditional differences discoverable without speculative abstractions.
 
-### 8. Script Performance and Output Bounds
-Apply when scripts process substantial data, repeatedly access files/services, or scale output with repository size:
+### 8. Script Performance, Platform Awareness, and Output Bounds
+Apply when scripts process substantial data, repeatedly access files/services, scale output with repository size, or run across environments:
+- **Platform awareness & compatibility:** Check that scripts and command invocations match the target environment. If intended to be cross-platform, flag hardcoded OS paths (backslashes `\`), OS-specific environment variables (`%USERPROFILE%`, `$HOME`), unportable shell commands (`sed`, `grep`, `awk`, `rm -rf`, `powershell.exe`), or missing file permissions. Ensure cross-platform scripts use portable standard-library interpreters (e.g. Python, Node) or declare paired entrypoints (`.sh` and `.ps1`).
 - **Work avoided & filtering:** Reuse retrieved data, batch compatible operations, and apply scope/limits early to avoid unnecessary scans, parsing, or subprocess startup. A limit must not produce false totals or pass off partial validation as complete.
 - **Bounded resources & retries:** Process large inputs safely, bound concurrency, and bound external calls/retries with observable failure behavior rather than silent work. Ensure cache keys prevent stale cross-context results.
 - **Default output & bounds:** Prefer a summary and selected detail for review while preserving full payloads for downstream parsers. Document record/line/byte bounds and paging in `--help` when output can exceed one response.

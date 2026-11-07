@@ -30,7 +30,7 @@ For creation or a material workflow change, resolve applicable areas from worksp
 ### 3. Workflow, Automation, and Recovery
 - **Process and failure paths:** End-to-end steps, decision gates, verification checkpoints, stopping conditions for loops/retries/delegation, and state preservation on partial failure.
 - **Prompt vs. script boundary:** Keep interpretation and domain judgment in the prompt. Reuse or add a helper under `scripts/` only when repetition, fragile deterministic mechanics, or executable validation justify code.
-- **Helper contract (when scripting):** Define script path, CLI arguments (verified against `--help`), input/output formats, exit codes, idempotency, and output bounds/filtering for large workloads using [script performance and output bounds](review-rubric.md#8-script-performance-and-output-bounds).
+- **Helper contract (when scripting):** Define script path, CLI arguments (verified against `--help`), input/output formats, exit codes, idempotency, output bounds/filtering for large workloads using [script performance and output bounds](review-rubric.md#8-script-performance-and-output-bounds), and target platform/shell support (universal cross-platform vs. OS-specific wrappers).
 
 ## Component-Specific Decisions
 

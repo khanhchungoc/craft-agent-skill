@@ -99,10 +99,11 @@ npx skills add khanhchungoc/craft-agent-skill
 git submodule add https://github.com/khanhchungoc/craft-agent-skill.git .github/skills/craft-agent-skill
 ```
 
-### PowerShell / Bash Script Installers
-If you have cloned this repository locally, you can target specific runtimes:
-* **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User -Runtime claude` (options: `all`, `copilot`, `claude`, `codex`, `gemini`, `antigravity`, `kiro`)
-* **macOS / Linux:** `./scripts/install.sh --scope user --runtime claude` (options: `all`, `copilot`, `claude`, `codex`, `gemini`, `antigravity`, `kiro`)
+### Local Script Installers (Python, PowerShell, Bash)
+If you have cloned this repository locally, you can install via the unified cross-platform Python script or native shell wrappers:
+* **Universal (Python 3.10+):** `python scripts/install.py --scope user --runtime claude` (options: `all`, `copilot`, `claude`, `codex`, `gemini`, `antigravity`, `kiro`)
+* **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User -Runtime claude`
+* **macOS / Linux (Bash):** `./scripts/install.sh --scope user --runtime claude`
 
 ### Built-in Linter & Validator
 Validate any agent or skill folder for syntax errors, platform compatibility, and broken links:
