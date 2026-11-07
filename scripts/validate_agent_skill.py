@@ -171,6 +171,9 @@ def metadata_findings(path: Path, data: dict, key_lines: dict, runtime: str,
         if runtime == "codex" and "tools" in data:
             issues.append(finding(path, key_lines.get("tools", 1), "runtime-field",
                                   "Codex custom agents inherit tools; do not use a Copilot/Claude tools field."))
+        elif runtime in ("gemini", "antigravity") and "tools" in data:
+            issues.append(finding(path, key_lines.get("tools", 1), "runtime-field",
+                                  "Gemini custom agents do not accept a 'tools' frontmatter field; tool capabilities are inherited or configured via the environment."))
         elif not isinstance(tools, list) or any(not isinstance(tool, str) or not tool.strip() for tool in tools):
             issues.append(finding(path, key_lines.get("tools", 1), "frontmatter-tools",
                                   "Agent tools must be a list of non-empty strings."))

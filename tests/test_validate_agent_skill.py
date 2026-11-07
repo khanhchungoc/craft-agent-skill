@@ -202,6 +202,13 @@ class ValidatorTests(unittest.TestCase):
         path.write_text(content.replace('developer_instructions = "Report concrete findings with evidence."', 'tools = ["Read"]'), encoding="utf-8")
         self.assertTrue({"agent-instructions", "runtime-field"}.issubset(self.rules(path)))
 
+    def test_gemini_agent_rejects_tools_frontmatter_field(self):
+        content = 'name: reviewer\ndescription: Review supplied changes.\n'
+        path = self.write(".gemini/agents/reviewer.md", content)
+        self.assertEqual(self.rules(path), set())
+        path_with_tools = self.write(".gemini/agents/reviewer.md", content + 'tools: ["read"]\n')
+        self.assertIn("runtime-field", self.rules(path_with_tools))
+
     def test_kiro_json_and_markdown_profiles_accept_native_resources(self):
         content = {"name": "reviewer", "description": "Review a supplied artifact.",
                    "tools": ["read"], "prompt": "Return evidence-backed findings.",
@@ -290,6 +297,7 @@ class ValidatorTests(unittest.TestCase):
             "copilot": ".github/agents/reviewer.agent.md",
             "claude": ".claude/agents/reviewer.md",
             "codex": ".codex/agents/reviewer.toml",
+            "gemini": ".gemini/agents/reviewer.md",
             "kiro": ".kiro/agents/reviewer.md",
         }
         for profile, destination in destinations.items():

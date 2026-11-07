@@ -51,3 +51,4 @@ Improve future execution from session evidence—failures, corrections, avoidabl
 | User reports symptom feedback or asks "why did agent do X" | Isolate root cause, state cause $\rightarrow$ remedy, and confirm scope before editing | Mutating files immediately on a symptom report without diagnostic confirmation |
 | Specialized workflow needs gating or clarification | Encapsulate gate in custom agent and owning skill | Leaking specialized workflow gates into global workspace steering |
 | New decision criteria or small lookup rule needed | Embed concisely in `SKILL.md` (in-file density first) if `< 14 KB` | Creating a new auxiliary reference file prematurely |
+| Runtime rejects a metadata field (e.g. Gemini rejects 'tools' in agent frontmatter) | Enforce runtime-specific frontmatter constraints in validator and templates; configure capabilities natively | Assuming all agent wrappers share identical frontmatter schemas |

@@ -17,7 +17,7 @@ Do not copy host-specific instructions into artifacts for another runtime. The s
 | [Elicitation guide](references/elicitation-guide.md) | Discovery coverage and resolving missing decisions | Creating or materially changing a workflow; unresolved material decisions |
 | [Session distillation](references/session-distillation.md) | Translating feedback without changing its scope | Improving instructions from a conversation or failure |
 | [Review rubric](references/review-rubric.md) | Universal quality criteria and finding format | Reviewing an asset together with its selected runtime profile |
-| [Runtime agent templates](assets/runtimes/) | Native agent templates (Copilot, Claude, Codex, Kiro) | Composing a platform-specific agent |
+| [Runtime agent templates](assets/runtimes/) | Native agent templates | Composing a platform-specific agent |
 | [Universal skill template](assets/skill.template.md) | Universal workflow structure | Composing any new skill package |
 | [Validator](scripts/validate_agent_skill.py) | Executable structural checks and CLI help | Verifying files; change it when changing a lint rule |
 
@@ -38,7 +38,7 @@ Do not copy host-specific instructions into artifacts for another runtime. The s
 - Define the intended request, activation boundary, inputs, output, and success criteria from the available evidence.
 - After elicitation, conduct ecosystem & domain research ([elicitation guide](references/elicitation-guide.md#post-elicitation-ecosystem--domain-research)) to check for existing skills and domain standards before authoring.
 - Compose the common body scaffold with the selected native wrapper from [assets/runtimes/](assets/runtimes/). Replace placeholders and remove unused sections and authoring notes.
-- For agents, define responsibility and tool access; link procedural skills with dispatch conditions. Restrict tools to the workflow's needs.
+- For agents, define responsibility and tool access; link procedural skills with dispatch conditions.
 - For skills, put selection criteria in the frontmatter description. Practice **in-file density first**: keep self-contained criteria, decision tables, and rules directly in `SKILL.md`, splitting into `references/` or `assets/` only when the primary file approaches single-read tool limits (`> 14 KB`) or contains mutually exclusive routes. Guard against lost-in-the-middle attention drop-off: load only step-relevant `references/` or `assets/`, and keep critical invariants and verification near the top or bottom of the active instruction rather than buried behind long worked examples or inactive routes.
 - Include a useful happy path, required preconditions, verification, and only the failure branches the task needs.
 
