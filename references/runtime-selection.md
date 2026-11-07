@@ -28,7 +28,7 @@ Before creating or reviewing an agent/skill, decide whether each instruction bel
 
 | Layer | Put here when the instruction... | Avoid when |
 |---|---|---|
-| Steering / repo instructions | Is a standing convention (coding style, naming, test/build commands, architecture rules) that applies regardless of task, or to files matching a glob | It is a multi-step procedure used only for one task type, or needs scripts/assets |
+| Steering / repo instructions | Is a standing convention (coding style, naming, test/build commands, architecture rules) that applies regardless of task, or to files matching a glob | It is a multi-step procedure used only for one task type, needs scripts/assets, or is a specialized workflow gate that belongs to a specific custom agent or skill (steering must remain role-agnostic) |
 | Agent | Defines a role: responsibility boundary, tool/permission scope, which skills to mount and when | It is a reusable procedure or a repo-wide convention |
 | Skill | Is an on-demand procedure with its own references/scripts, triggered by task type | It must apply on every request (it may never activate) or is tiny and file-scoped |
 
@@ -45,6 +45,7 @@ Native steering locations (web-verified 2026-10-29 against current docs; re-chec
 Placement rules:
 - Move a convention out of an agent or skill into steering when it repeats across several of them or must hold outside them; link or reference it rather than copying (see SSOT).
 - Keep steering short: it is loaded into context every time it matches. Push long procedures into a skill and leave a one-line pointer.
+- **Keep steering role-agnostic:** Never leak specialized agent workflow gates, multi-turn elicitation workflows, or domain delivery constraints into global steering. When dedicated custom agents exist, specialized workflows belong inside the agent and its mounted skills; steering should only hold universal, cross-cutting conventions.
 - Do not create or edit steering files for a request limited to an agent/skill; propose the move and let the user approve, since steering affects every session in the repo.
 - Report a placement finding per target runtime; when a runtime has no equivalent, say so.
 

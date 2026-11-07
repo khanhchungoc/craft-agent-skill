@@ -8,6 +8,7 @@ Read the request, relevant workspace evidence, and existing decisions first. Do 
 - **Inspect evidence before asking:** Check target files, tool definitions, CLI `--help`, templates, and callers first. Treat existing code as evidence of current behavior, not automatic proof of intended behavior.
 - **Order and batching:** Progress in dependency order (`Objective & Scope` → `Workflow & Contracts` → `Execution Details`). Start with the most consequential blocker, ask **1–3 related questions per turn** (or honor an explicit user limit), and ask about detailed branches only after a branch is selected.
 - **Question framing:** State the decision and why it matters. For viable alternatives, offer 2–3 options with a **recommended default**, concise trade-offs, and a free-text override. For a missing fact or external contract, ask for the fact or its authoritative source rather than inventing options.
+- **Separate diagnosis from mutation:** When responding to diagnostic inquiries, symptom feedback, or unexpected behavior reports, complete root-cause analysis and confirm the proposed remedy before editing artifacts.
 - **Non-interactive or delegated runs:** Do not invent business rules or treat silence as approval. Continue independent work where possible; if a material blocker remains without an authorized default, report the missing input, affected operation, and what the caller must supply to resume.
 
 ## Discovery Coverage
