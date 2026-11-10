@@ -108,6 +108,16 @@ if yaml is not None:
                     )
             return super().construct_mapping(node, deep=deep)
 
+    def load_unique_yaml(stream: str):
+        loader = UniqueSafeLoader(stream)
+        try:
+            return loader.get_single_data()
+        finally:
+            loader.dispose()
+else:
+    def load_unique_yaml(stream: str):
+        raise RuntimeError("PyYAML is not installed.")
+
 
 def finding(path: Path, line: int, rule: str, message: str,
             severity: str = "error") -> dict:
@@ -127,7 +137,7 @@ def frontmatter_findings(path: Path, content: str, runtime: str = "auto",
         return [finding(path, 1, "yaml-dependency", "Install PyYAML from scripts/requirements.txt.")]
     frontmatter = match.group(1)
     try:
-        data = yaml.load(frontmatter, Loader=UniqueSafeLoader)
+        data = load_unique_yaml(frontmatter)
     except yaml.YAMLError as exc:
         mark = getattr(exc, "problem_mark", None)
         rule = "frontmatter-duplicate-key" if isinstance(exc, DuplicateKeyError) else "frontmatter-yaml"
@@ -225,7 +235,7 @@ def structured_findings(path: Path, content: str, runtime: str, kind: str,
                 return result
             data = json.loads(content, object_pairs_hook=unique_object)
         else:
-            data = yaml.load(content, Loader=UniqueSafeLoader)
+            data = load_unique_yaml(content)
     except (ValueError, TypeError, OverflowError, yaml.YAMLError) as exc:
         mark = getattr(exc, "problem_mark", None)
         line = mark.line + 1 if mark else getattr(exc, "lineno", None)

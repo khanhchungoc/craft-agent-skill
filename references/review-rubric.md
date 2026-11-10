@@ -33,7 +33,9 @@ Mark an unexercised capability as *unverified* and an irrelevant dimension as *n
 - If coordination exists, are ownership and return conditions clear and free of cyclic delegation? Omit handoff sections when none exist.
 
 ### 2. Ownership (DRY / SSOT), Consistency, and Change Impact
-- **Single Source of Truth:** Is the authoritative owner of each rule, schema, parameter contract, or procedure identifiable? Do callers reference that owner, and do examples or checks agree with it?
+- **Single Source of Truth:** Is the authoritative owner of each rule, schema, parameter contract, or procedure identifiable? Is it defined in full in exactly one file?
+- **Zero-Echo / Shadow Duplication:** Flag when an entrypoint, caller, or parent file contains a shortened, paraphrased, or "courtesy reminder" of a rule defined elsewhere. An instruction must live in full in its SSOT file; callers must not echo or summarize it.
+- **Placement Reflection Test for references:** Flag unnecessary cross-file references. If a caller felt compelled to summarize or link an external instruction to complete its step, assess whether the instruction was misplaced: it should either live directly in the caller (in-file density first) or be omitted from the caller entirely if out of scope.
 - **Semantic redundancy:** Consolidate differently worded rules pursuing the same goal (e.g., an entrypoint, reference, and template paraphrasing the same workflow steps, validation rule, or output constraint) into the canonical owner.
 - **Intra-file & cross-artifact conflicts:** Check for contradictions *within the same file* and *across referenced artifacts* (`SKILL.md`, `references/`, `assets/`, `scripts/` CLI flags/defaults, and sibling/global instructions). Verify paths, field names, exit codes, permissions, and schemas match everywhere.
 - Distinguish a subordinate reference, example, or check from a second independent definition that can drift. Check whether prose merely repeats a template rather than explaining a non-obvious decision.

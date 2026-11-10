@@ -12,6 +12,7 @@ from __future__ import annotations
 import argparse
 import os
 import shutil
+import subprocess
 import sys
 from pathlib import Path
 
@@ -54,7 +55,7 @@ def remove_existing(target: Path) -> None:
 def create_link(source: Path, target: Path) -> None:
     try:
         # On Windows, try junction first for directories if available to avoid privilege issues
-        if sys.platform == "win32" and hasattr(os, "system"):
+        if sys.platform == "win32":
             # Check if directory junction can be created
             target.parent.mkdir(parents=True, exist_ok=True)
             try:
@@ -62,9 +63,11 @@ def create_link(source: Path, target: Path) -> None:
                 target.symlink_to(source, target_is_directory=True)
             except OSError:
                 # Fallback to mklink /J on Windows if unprivileged symlink fails
-                res = os.system(f'cmd /c mklink /J "{target}" "{source}" >nul 2>&1')
-                if res != 0:
-                    raise
+                subprocess.run(
+                    ["cmd.exe", "/c", "mklink", "/J", str(target), str(source)],
+                    capture_output=True,
+                    check=True,
+                )
         else:
             target.symlink_to(source, target_is_directory=True)
     except Exception as e:

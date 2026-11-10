@@ -1,4 +1,4 @@
-﻿# Runtime Selection and Composition
+# Runtime Selection and Composition
 
 ## Establish the Target Before Choosing a Format
 
@@ -43,7 +43,7 @@ Native steering locations (web-verified 2026-10-29 against current docs; re-chec
 | `kiro` | `.kiro/steering/*.md` (`inclusion: always`, the default), `~/.kiro/steering/` | `inclusion: fileMatch` + `fileMatchPattern`; `manual` (invoked by name); `auto` (description-matched, newer versions) | Conditional modes vary by surface/version |
 
 Placement rules:
-- Move a convention out of an agent or skill into steering when it repeats across several of them or must hold outside them; link or reference it rather than copying (see SSOT).
+- Move a convention out of an agent or skill into steering when it repeats across several of them or must hold outside them; remove it completely from the agent/skill rather than leaving shortened summaries or breadcrumb notes (see SSOT).
 - Keep steering short: it is loaded into context every time it matches. Push long procedures into a skill and leave a one-line pointer.
 - **Keep steering role-agnostic:** Never leak specialized agent workflow gates, multi-turn elicitation workflows, or domain delivery constraints into global steering. When dedicated custom agents exist, specialized workflows belong inside the agent and its mounted skills; steering should only hold universal, cross-cutting conventions.
 - Do not create or edit steering files for a request limited to an agent/skill; propose the move and let the user approve, since steering affects every session in the repo.
