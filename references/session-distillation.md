@@ -33,7 +33,7 @@ Improve future execution from session evidence—failures, corrections, avoidabl
 | Coding style or repo-wide rules | Shared coding instructions (steering) | Links from affected workflows (steering must remain role-agnostic; keep specialized agent gates in the agent/skill) |
 | Test conventions or environment setup | Shared testing guidance or test runner | Task-specific invocation and inputs |
 | Agent responsibility, routing, or tools | Relevant agent definition (or shared router) | Procedural details in the owning skill |
-| Task procedure, modes, or recovery | Owning skill (`SKILL.md`; in-file density first) or conditional reference if `> 14 KB` | Plain routing link only if split; zero echoed summaries or reminder notes |
+| Task procedure, modes, or recovery | Owning skill (`SKILL.md`; in-file density first) or conditional reference if `> 20 KB` | Plain routing link only if split; zero echoed summaries or reminder notes |
 | Schemas, examples, or lookup tables | `references/` (guidance) or `assets/` (templates) | Discoverable link with read/use condition |
 | Deterministic parsing, validation, or CLI args | Helper script in `scripts/` + regression test | Command invocation in the calling skill |
 | Contract-specific data or behavior | That contract and its fixtures | Broader guidance only when evidence supports it |
@@ -51,5 +51,5 @@ Improve future execution from session evidence—failures, corrections, avoidabl
 | Agent made a false assumption from missing error docs | `Silence != Permission: Absence of a documented error or restriction is never proof an operation is allowed.` | Writing multi-paragraph explanations of backend engines, quoting specs, and recounting session failure history |
 | User reports symptom feedback or asks "why did agent do X" | Isolate root cause, state cause $\rightarrow$ remedy, and confirm scope before editing | Mutating files immediately on a symptom report without diagnostic confirmation |
 | Specialized workflow needs gating or clarification | Encapsulate gate in custom agent and owning skill | Leaking specialized workflow gates into global workspace steering |
-| New decision criteria or small lookup rule needed | Embed concisely in `SKILL.md` (in-file density first) if `< 14 KB` | Creating a new auxiliary reference file prematurely |
+| New decision criteria or small lookup rule needed | Embed concisely in `SKILL.md` (in-file density first) if `< 20 KB` | Creating a new auxiliary reference file prematurely |
 | Runtime rejects a metadata field (e.g. Gemini rejects 'tools' in agent frontmatter) | Enforce runtime-specific frontmatter constraints in validator and templates; configure capabilities natively | Assuming all agent wrappers share identical frontmatter schemas |

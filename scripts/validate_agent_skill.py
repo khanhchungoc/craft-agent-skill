@@ -31,7 +31,8 @@ AGENT_ROOTS = {".github": "copilot", ".claude": "claude",
                ".codex": "codex", ".kiro": "kiro", ".gemini": "gemini",
                ".agents": "gemini"}
 SKILL_ROOTS = (".github", ".claude", ".agents", ".kiro", ".gemini")
-MAX_MARKDOWN_BYTES = 14 * 1024
+MAX_ENTRYPOINT_BYTES = 20 * 1024
+MAX_REFERENCE_BYTES = 40 * 1024
 
 
 def runtime_for(path: Path, selected: str = "auto") -> str:
@@ -262,15 +263,25 @@ def structured_findings(path: Path, content: str, runtime: str, kind: str,
     return metadata_findings(path, data, keys, runtime, kind, template)
 
 
-def markdown_findings(path: Path, content: str) -> list[dict]:
+def markdown_findings(path: Path, content: str, kind: str | None = None) -> list[dict]:
     issues = []
+    if kind is None:
+        kind = artifact_kind(path, runtime_for(path))
     size_bytes = len(content.encode("utf-8"))
-    if size_bytes > MAX_MARKDOWN_BYTES:
-        issues.append(finding(
-            path, 1, "file-size",
-            f"Markdown file is {size_bytes / 1024:.1f} KB (exceeds the 14 KB single-read guideline); consider splitting mutually exclusive routes, worked examples, or schemas into references/.",
-            "warning",
-        ))
+    is_entrypoint = kind in ("skill", "agent")
+    limit_bytes = MAX_ENTRYPOINT_BYTES if is_entrypoint else MAX_REFERENCE_BYTES
+    if size_bytes > limit_bytes:
+        if is_entrypoint:
+            message = (
+                f"Entrypoint file is {size_bytes / 1024:.1f} KB (exceeds the 20 KB always-loaded budget); "
+                "consider offloading mutually exclusive routes, worked examples, or schemas into references/."
+            )
+        else:
+            message = (
+                f"Markdown file is {size_bytes / 1024:.1f} KB (exceeds the 40 KB single-read guideline); "
+                "consider splitting independent topics or schemas into focused files."
+            )
+        issues.append(finding(path, 1, "file-size", message, "warning"))
     fence = None
     for number, line in enumerate(content.splitlines(), 1):
         marker = re.match(r"^\s{0,3}(`{3,}|~{3,})(.*)$", line)
@@ -334,7 +345,7 @@ def validate_file(path: Path, runtime: str = "auto", kind: str = "auto") -> list
                 issues.append(finding(path, 1, "runtime-format", "Codex custom agents use TOML, not Markdown frontmatter."))
             else:
                 issues.extend(frontmatter_findings(path, content, profile, kind, template))
-        issues.extend(markdown_findings(path, content))
+        issues.extend(markdown_findings(path, content, kind))
     return issues
 
 

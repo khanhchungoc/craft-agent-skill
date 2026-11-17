@@ -8,7 +8,7 @@ Establish the consumer via [runtime selection](runtime-selection.md), then apply
 
 Distinguish shared conventions, verified native requirements, and version/surface-dependent capabilities. Keep unsupported migration requirements visible rather than claiming success after syntax conversion.
 
-Judge revisions by correctness, task completion, and preservation of operational knowledge. Do not delete decision criteria, causal explanations, examples, or recovery guidance to hit an arbitrary line count, but keep Markdown files within single-read tool limits (`< 14 KB`) by splitting mutually exclusive routes, worked examples, and schemas into `references/` or `assets/`, and deleting superseded rules or inline changelogs.
+Judge revisions by correctness, task completion, and preservation of operational knowledge. Do not delete decision criteria, causal explanations, examples, or recovery guidance to hit an arbitrary line count, but keep always-loaded entrypoints compact (`< 20 KB` for `SKILL.md` / Markdown agents) and supporting Markdown within single-read tool limits (`< 40 KB`) by splitting mutually exclusive routes, worked examples, and schemas into `references/` or `assets/`, and deleting superseded rules or inline changelogs.
 
 Treat persona style, Markdown layout, script use, description brevity, and parallelism as design choices unless the task or an authoritative contract requires them. Do not claim percentage savings, zero-token execution, or improved model quality without measurements.
 
@@ -47,7 +47,7 @@ Mark an unexercised capability as *unverified* and an irrelevant dimension as *n
 - **Ambiguity & decision clarity:** Flag vague or underspecified instructions where two reasonable executions could make opposite choices (unclear pronouns, unstated precedence when sources disagree, undefined thresholds like "large", or ambiguous authority between asking vs. proceeding). Every branch should resolve to a concrete action.
 - Does each instruction change a decision, supply context, or establish a real constraint? Remove generic advice, canned dialogue, withdrawn rules, and inline changelogs when they add no operational value.
 - Preserve explanations that help choose among valid approaches; do not replace a useful example or failure branch with "handle appropriately."
-- **Single-read modularity (`< 14 KB`) & lost-in-the-middle resilience:** Balance modularity with in-file density: keep self-contained criteria, decision tables, or rules directly in `SKILL.md` (in-file density first) when the file remains well under the single-read guideline (`< 14 KB`). Avoid premature auxiliary file proliferation (`references/`) when a concise inline block suffices. Split references by step/topic (`< 14 KB` each) with clear read conditions so only active material loads, and anchor critical constraints and verification near the start or end of the active file rather than burying them behind long examples or templates.
+- **Tiered modularity (`< 20 KB` entrypoint / `< 40 KB` reference) & lost-in-the-middle resilience:** Balance modularity with in-file density: keep self-contained criteria, decision tables, or rules directly in `SKILL.md` (in-file density first) when the entrypoint stays within its always-loaded budget (`< 20 KB`). Avoid premature auxiliary file proliferation (`references/`) when a concise inline block suffices. Split large references by step or topic (`< 40 KB` single-read ceiling) with clear read conditions so only active material loads, and anchor critical constraints and verification near the start or end of the active file rather than burying them behind long examples or templates.
 - Retain enough context to use a referenced schema, script, or template correctly; moving text is not an improvement if the caller cannot find or interpret it.
 - Tie negative constraints to a plausible failure mode, contract, or authority boundary rather than restating every positive step as a prohibition.
 
@@ -109,7 +109,7 @@ Check artifact content and task completion, not merely filenames, headings, or s
 | 🟡 | Material ambiguity, duplication, or dependency risk with concrete impact | Conflicting caller instructions or an unavailable command with no valid recovery |
 | 🟢 | Optional clarity or maintainability improvement | Wording can be clearer without changing correct behavior |
 
-Assign severity from consequences, reach, and recoverability; record confidence separately (*verified behavior*, *source-supported risk*, or *hypothesis*). Missing persona blocks or unmeasured token claims do not determine severity; flag oversized files (`> 14 KB`) when they exceed single-read limits or mix unrelated routes/examples.
+Assign severity from consequences, reach, and recoverability; record confidence separately (*verified behavior*, *source-supported risk*, or *hypothesis*). Missing persona blocks or unmeasured token claims do not determine severity; flag oversized files (`> 20 KB` entrypoints or `> 40 KB` references) when they exceed context/single-read budgets or mix unrelated routes/examples.
 
 Scale the report to the assignment:
 1. **Assessment and coverage:** Main conclusion, strengths to preserve, files/capabilities inspected, and unverified areas.
