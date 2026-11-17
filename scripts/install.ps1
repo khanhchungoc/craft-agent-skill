@@ -46,7 +46,30 @@ $ErrorActionPreference = 'Stop'
 $repoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
 $userHome = [System.Environment]::GetFolderPath([System.Environment+SpecialFolder]::UserProfile)
 
-Write-Host "==> Installing craft-agent-skill" -ForegroundColor Cyan
+function Get-SkillVersion {
+    param([string]$Root)
+    $skillPath = Join-Path $Root "SKILL.md"
+    if (Test-Path $skillPath) {
+        $content = Get-Content -Path $skillPath -Raw -Encoding UTF8
+        if ($content -match '(?ms)\A---\s*\r?\n(.*?)\r?\n---') {
+            if ($Matches[1] -match '(?m)^\s*version:\s*["'']?([^"''\r\n]+)["'']?\s*$') {
+                return $Matches[1].Trim()
+            }
+        }
+    }
+    $pkgPath = Join-Path $Root "package.json"
+    if (Test-Path $pkgPath) {
+        try {
+            $pkg = Get-Content -Path $pkgPath -Raw -Encoding UTF8 | ConvertFrom-Json
+            if ($pkg.version) { return "$($pkg.version)".Trim() }
+        } catch {}
+    }
+    return "unknown"
+}
+
+$skillVersion = Get-SkillVersion -Root $repoRoot
+
+Write-Host "==> Installing craft-agent-skill v$skillVersion" -ForegroundColor Cyan
 Write-Host "    Source:  $repoRoot"
 Write-Host "    Scope:   $Scope"
 Write-Host "    Mode:    $Mode"
@@ -118,4 +141,4 @@ foreach ($rt in $runtimesToInstall) {
     }
 }
 
-Write-Host "==> Installation complete!" -ForegroundColor Cyan
+Write-Host "==> Installation complete! (v$skillVersion)" -ForegroundColor Cyan

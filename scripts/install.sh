@@ -31,7 +31,30 @@ done
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 
-echo "==> Installing craft-agent-skill"
+read_skill_version() {
+    local ver=""
+    if [[ -f "$REPO_ROOT/SKILL.md" ]]; then
+        ver="$(awk '
+            NR == 1 && /^---[[:space:]]*$/ { in_fm = 1; next }
+            in_fm && /^---[[:space:]]*$/ { exit }
+            in_fm && /^[[:space:]]*version:[[:space:]]*/ {
+                sub(/^[[:space:]]*version:[[:space:]]*/, "", $0)
+                gsub(/^["'\'']|["'\''][[:space:]]*$/, "", $0)
+                gsub(/[[:space:]]+$/, "", $0)
+                print $0
+                exit
+            }
+        ' "$REPO_ROOT/SKILL.md")"
+    fi
+    if [[ -z "$ver" && -f "$REPO_ROOT/package.json" ]]; then
+        ver="$(sed -n 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$REPO_ROOT/package.json" | head -n 1)"
+    fi
+    echo "${ver:-unknown}"
+}
+
+SKILL_VERSION="$(read_skill_version)"
+
+echo "==> Installing craft-agent-skill v$SKILL_VERSION"
 echo "    Source:  $REPO_ROOT"
 echo "    Scope:   $SCOPE"
 echo "    Mode:    $MODE"
@@ -104,4 +127,4 @@ for rt in "${RUNTIMES[@]}"; do
     fi
 done
 
-echo "==> Installation complete!"
+echo "==> Installation complete! (v$SKILL_VERSION)"

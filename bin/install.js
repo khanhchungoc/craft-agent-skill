@@ -10,6 +10,28 @@ const __dirname = path.dirname(__filename);
 const REPO_ROOT = path.resolve(__dirname, '..');
 const USER_HOME = os.homedir();
 
+function readSkillVersion(root = REPO_ROOT) {
+  try {
+    const skillMd = fs.readFileSync(path.join(root, 'SKILL.md'), 'utf8');
+    const fmMatch = skillMd.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+    if (fmMatch) {
+      const verMatch = fmMatch[1].match(/^\s*version:\s*["']?([^"'\r\n]+)["']?\s*$/m);
+      if (verMatch) return verMatch[1].trim();
+    }
+  } catch {
+    // Fall back to package.json below when SKILL.md is unavailable.
+  }
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(root, 'package.json'), 'utf8'));
+    if (pkg.version) return String(pkg.version).trim();
+  } catch {
+    // Ignore missing or unreadable package.json.
+  }
+  return 'unknown';
+}
+
+const SKILL_VERSION = readSkillVersion();
+
 // High-contrast ANSI colors
 const c = {
   reset: '\x1b[0m',
@@ -60,6 +82,9 @@ for (let i = 0; i < args.length; i++) {
     mode = 'symlink';
   } else if (arg === '--target-path' || arg === '-t') {
     targetPath = path.resolve(args[++i] || process.cwd());
+  } else if (arg === '--version' || arg === '-v') {
+    console.log(`v${SKILL_VERSION}`);
+    process.exit(0);
   } else if (arg === '--help' || arg === '-h') {
     printHelp();
     process.exit(0);
@@ -68,7 +93,7 @@ for (let i = 0; i < args.length; i++) {
 
 function printHelp() {
   console.log(`
-${c.cyan}${c.bold}Skill Craft Installer${c.reset}
+${c.cyan}${c.bold}Skill Craft Installer v${SKILL_VERSION}${c.reset}
 ${c.dim}Universal AI skill that teaches AI coding assistants to build, refine, and audit custom agents and skills.${c.reset}
 
 ${c.bold}Usage:${c.reset}
@@ -79,6 +104,7 @@ ${c.bold}Options:${c.reset}
   -p, --project             Install in current project / workspace directory
   -a, -r, --runtime <name>  Target runtime: copilot, claude, codex, gemini, antigravity, kiro, or all (default: all)
   -m, --mode <symlink|copy> Installation method (auto-detected: copy for npx, symlink for local clones)
+  -v, --version             Show skill version
   -h, --help                Show this help message
 
 ${c.bold}Supported Runtimes:${c.reset}
@@ -148,7 +174,7 @@ const asciiArt = [
 
 console.log('');
 console.log(`${c.cyan}${c.bold}${asciiArt.join('\n')}${c.reset}`);
-console.log(`${c.dim}   Universal AI Skill Builder for Coding Assistants • v1.0.0${c.reset}\n`);
+console.log(`${c.dim}   Universal AI Skill Builder for Coding Assistants • v${SKILL_VERSION}${c.reset}\n`);
 
 // Configuration Section
 console.log(`${c.cyan} ⚙  CONFIGURATION${c.reset}`);
@@ -265,7 +291,7 @@ const emptyLine    = `│${' '.repeat(boxWidth - 2)}│`;
 
 console.log('');
 console.log(`${c.border}${topBorder}${c.reset}`);
-console.log(`${c.border}${boxLine(`${c.green}✨ Installation Successful!${c.reset}`)}${c.reset}`);
+console.log(`${c.border}${boxLine(`${c.green}✨ Installation Successful! ${c.dim}(v${SKILL_VERSION})${c.reset}`)}${c.reset}`);
 console.log(`${c.border}${emptyLine}${c.reset}`);
 console.log(`${c.border}${boxLine(`${c.bold}${c.white}How to use:${c.reset}`)}${c.reset}`);
 console.log(`${c.border}${boxLine(`  Type ${c.cyan}/craft-agent-skill${c.reset}${c.white} in your AI assistant chat${c.reset}`)}${c.reset}`);

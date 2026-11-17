@@ -105,6 +105,18 @@ If you have cloned this repository locally, you can install via the unified cros
 * **Windows (PowerShell):** `.\scripts\install.ps1 -Scope User -Runtime claude`
 * **macOS / Linux (Bash):** `./scripts/install.sh --scope user --runtime claude`
 
+### Versioning & Releases
+The skill version lives in `SKILL.md` (`metadata.version`, synced with `package.json`) and is displayed by all terminal installers:
+```bash
+# Bump minor or major version in both SKILL.md and package.json
+node scripts/bump-version.js minor
+node scripts/bump-version.js major
+
+# Or create a version commit + git tag with npm
+npm version minor
+npm version major
+```
+
 ### Built-in Linter & Validator
 Validate any agent or skill folder for syntax errors, platform compatibility, and broken links:
 ```bash

@@ -6,6 +6,11 @@
   "bin": {
     "craft-agent-skill": "./bin/install.js"
   },
+  "scripts": {
+    "version": "node scripts/bump-version.js --sync-from-package && git add SKILL.md",
+    "version:minor": "node scripts/bump-version.js minor",
+    "version:major": "node scripts/bump-version.js major"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/khanhchungoc/craft-agent-skill.git"

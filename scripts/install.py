@@ -10,7 +10,9 @@ Zero external dependencies - standard library only.
 from __future__ import annotations
 
 import argparse
+import json
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -74,7 +76,35 @@ def create_link(source: Path, target: Path) -> None:
         print(f"  [!] Symlink/junction failed ({e}). Falling back to copy...")
         shutil.copytree(source, target)
 
+def read_skill_version(repo_root: Path) -> str:
+    """Read metadata.version from SKILL.md frontmatter, falling back to package.json."""
+    skill_path = repo_root / "SKILL.md"
+    try:
+        content = skill_path.read_text(encoding="utf-8")
+    except OSError:
+        content = ""
+    frontmatter = re.match(r"\A---[ \t]*\r?\n(.*?)\r?\n---", content, re.S)
+    if frontmatter:
+        version_match = re.search(
+            r"^\s*version:\s*[\"']?([^\"'\r\n]+)[\"']?\s*$",
+            frontmatter.group(1),
+            re.M,
+        )
+        if version_match:
+            return version_match.group(1).strip()
+    try:
+        pkg = json.loads((repo_root / "package.json").read_text(encoding="utf-8"))
+        if pkg.get("version"):
+            return str(pkg["version"]).strip()
+    except (OSError, ValueError):
+        pass
+    return "unknown"
+
+
 def main() -> int:
+    repo_root = Path(__file__).resolve().parent.parent
+    skill_version = read_skill_version(repo_root)
+
     parser = argparse.ArgumentParser(
         description="Install craft-agent-skill into AI agent runtimes (User or Project level)."
     )
@@ -100,14 +130,18 @@ def main() -> int:
         default=".",
         help="Target workspace root for project-level scope. Default: current working directory.",
     )
+    parser.add_argument(
+        "--version", "-v",
+        action="version",
+        version=f"craft-agent-skill v{skill_version}",
+    )
 
     args = parser.parse_args()
 
-    repo_root = Path(__file__).resolve().parent.parent
     target_path = Path(args.target_path).resolve()
     selected_runtime = normalize_runtime(args.runtime)
 
-    print(f"==> Installing craft-agent-skill")
+    print(f"==> Installing craft-agent-skill v{skill_version}")
     print(f"    Source:  {repo_root}")
     print(f"    Scope:   {args.scope}")
     print(f"    Mode:    {args.mode}")
@@ -143,7 +177,7 @@ def main() -> int:
         installed += 1
 
     print()
-    print(f"[SUCCESS] Successfully installed craft-agent-skill to {installed} target(s).")
+    print(f"[SUCCESS] Successfully installed craft-agent-skill v{skill_version} to {installed} target(s).")
     return 0
 
 if __name__ == "__main__":
